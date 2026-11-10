@@ -20,6 +20,8 @@ summary{padding:14px;font-weight:700;cursor:pointer}
 label{display:block;font-size:11px;opacity:.6;margin:8px 0 3px}
 input,textarea{width:100%;background:#151515;border:1px solid #2a2a2a;border-radius:8px;color:#fff;padding:9px;font:inherit}
 textarea{min-height:64px;resize:vertical}
+select{width:100%;background:#151515;border:1px solid #2a2a2a;border-radius:8px;color:#fff;padding:9px;font:inherit}
+input[type=color]{height:40px;padding:3px}
 .row{display:flex;gap:6px;align-items:center}.row input{flex:1}
 .th{width:44px;height:44px;border-radius:8px;object-fit:cover;background:#222}
 .bar{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
@@ -48,6 +50,8 @@ const S=[
 {t:'Planes',p:'planes',k:'arr',f:[['nombre','Nombre'],['precio','Precio'],['desc','Descripción','area'],['img','Imagen','file']],n:{nombre:'',precio:'',desc:'',img:'',grad:G}},
 {t:'Modelos (las palabras clave crean las sugerencias del buscador)',p:'modelos',k:'arr',f:[['titulo','Título'],['precio','Precio'],['keys','Palabras clave separadas por espacio'],['img','Imagen','file']],n:{titulo:'',precio:'',keys:'',img:'',grad:G}},
 {t:'Portafolio',p:'portafolio',k:'arr',f:[['nombre','Nombre'],['plan','Plan'],['img','Imagen','file']],n:{nombre:'',plan:'',img:'',grad:G}},
+{t:'Contorno LED de las tarjetas',p:'estilo',k:'obj',f:[['ledModo','Modo','select',['fijo','rgb']],['ledColor','Color del modo fijo','color'],['ledVelocidad','Velocidad del RGB en segundos (menor = más rápido)']]},
+{t:'Colores del modo RGB (agrega los que quieras)',p:'estilo.rgbColores',k:'strs',c:1},
 {t:'Preguntas frecuentes',p:'preguntas',k:'arr',f:[['q','Pregunta'],['a','Respuesta','area']],n:{q:'',a:''}},
 {t:'WhatsApp y mensajes',p:'contacto',k:'obj',f:[['whatsapp','WhatsApp (con código de país, sin +)'],['titulo','Título','area'],['boton','Texto del botón'],['msgGeneral','Mensaje general'],['tituloPlan','Título al elegir plan ({n} nombre, {p} precio)','area'],['msgPlan','Mensaje al elegir plan'],['tituloModelo','Título al elegir modelo','area'],['msgModelo','Mensaje al elegir modelo']]},
 {t:'Pie de página',p:'footer',k:'strs'}
@@ -56,8 +60,11 @@ function toast(t){const m=$('msg');m.textContent=t;m.style.display='block';clear
 const dirty=()=>{try{localStorage.setItem('joelwebs_draft',JSON.stringify(D))}catch(e){}};
 function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
 function btn(t,fn,c){const b=el('button',c||'',t);b.onclick=fn;return b}
-function inp(o,key,label,kind){
-  const w=el('div'),i=el(kind==='area'?'textarea':'input');w.append(el('label','',label));i.value=o[key]==null?'':o[key];
+function inp(o,key,label,kind,opts){
+  const w=el('div'),i=el(kind==='area'?'textarea':kind==='select'?'select':'input');w.append(el('label','',label));
+  if(kind==='select')(opts||[]).forEach(x=>i.append(new Option(x,x)));
+  if(kind==='color')i.type='color';
+  i.value=o[key]==null?(kind==='color'?'#ffffff':''):o[key];
   i.oninput=()=>{o[key]=i.value;dirty()};
   if(kind!=='file'){w.append(i);return w}
   const r=el('div','row'),th=el('img','th'),b=el('button','g','Subir'),f=el('input');
@@ -81,19 +88,19 @@ function cfgBox(){
 function render(){
   const m=$('m');m.innerHTML='';m.append(cfgBox());
   S.forEach(s=>{
-    const d=el('details'),b=el('div','in'),v=D[s.p];d.open=abierto===s.p;
+    const d=el('details'),b=el('div','in'),v=s.p.split('.').reduce((q,k)=>q[k],D);d.open=abierto===s.p;
     d.ontoggle=()=>{if(d.open)abierto=s.p};d.append(el('summary','',s.t),b);
-    if(s.k==='obj')s.f.forEach(f=>b.append(inp(v,f[0],f[1],f[2])));
+    if(s.k==='obj')s.f.forEach(f=>b.append(inp(v,f[0],f[1],f[2],f[3])));
     if(s.k==='arr'){
       v.forEach((o,i)=>{const it=el('div','item'),bar=el('div','bar');
-        s.f.forEach(f=>it.append(inp(o,f[0],f[1],f[2])));
+        s.f.forEach(f=>it.append(inp(o,f[0],f[1],f[2],f[3])));
         bar.append(btn('↑',()=>mover(v,i,-1),'g'),btn('↓',()=>mover(v,i,1),'g'),btn('Eliminar',()=>{if(confirm('¿Eliminar este elemento?')){v.splice(i,1);render();dirty()}},'r'));
         it.append(bar);b.append(it)});
       b.append(btn('+ Agregar',()=>{v.push({...s.n});render();dirty()}));
     }
     if(s.k==='strs'){
-      v.forEach((t,i)=>{const r=el('div','row'),x=el('input');x.value=t;x.oninput=()=>{v[i]=x.value;dirty()};r.style.marginBottom='6px';r.append(x,btn('✕',()=>{v.splice(i,1);render();dirty()},'r'));b.append(r)});
-      b.append(btn('+ Agregar',()=>{v.push('');render();dirty()}));
+      v.forEach((t,i)=>{const r=el('div','row'),x=el('input');if(s.c)x.type='color';x.value=t;x.oninput=()=>{v[i]=x.value;dirty()};r.style.marginBottom='6px';r.append(x,btn('✕',()=>{v.splice(i,1);render();dirty()},'r'));b.append(r)});
+      b.append(btn('+ Agregar',()=>{v.push(s.c?'#ffffff':'');render();dirty()}));
     }
     m.append(d);
   });
@@ -139,8 +146,10 @@ async function publicar(){
 $('bGh').onclick=publicar;
 $('bSave').onclick=guardar;$('bDown').onclick=descargar;
 $('bPrev').onclick=()=>{dirty();window.open('index.html?preview=1','_blank')};
+const ESTILO={ledModo:'fijo',ledColor:'#ffffff',rgbColores:['#ff0055','#00ff88','#0055ff'],ledVelocidad:'4'};
 function iniciar(){
   try{const d=localStorage.getItem('joelwebs_draft');if(d&&d!==JSON.stringify(D)&&confirm('Hay cambios sin guardar de la última vez. ¿Recuperarlos?'))D=JSON.parse(d)}catch(e){}
+  D.estilo=Object.assign({},ESTILO,D.estilo||{});
   render();
 }
 function entrar(){if($('pw').value===PASS){sessionStorage.setItem('adm','1');$('login').remove();iniciar()}else toast('Clave incorrecta')}
