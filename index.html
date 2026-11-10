@@ -75,7 +75,7 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:transparent;trans
 const D=(()=>{try{if(/preview/.test(location.search)){const d=localStorage.getItem('joelwebs_draft');if(d)return JSON.parse(d)}}catch(e){}return window.SITE_DATA})();
 const $=id=>document.getElementById(id);
 const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const bg=o=>o.img?`background:#111 url(${encodeURI(o.img)}) center/cover`:`background:${E(o.grad||'#111')}`;
+const bg=o=>o.img?`background:#111 url(${encodeURI(o.img)}) center/contain no-repeat`:`background:${E(o.grad||'#111')}`;
 const fill=(t,n,p)=>String(t).replace('{n}',n).replace('{p}',p);
 const M=D.marca,C=D.contacto,S=D.secciones;
 const wa=m=>`https://wa.me/${C.whatsapp}?text=${encodeURIComponent(m)}`;
@@ -102,9 +102,16 @@ $('inicio').prepend($('videoFondo'));
 const cont=$('carouselModelos'),buscador=$('buscador'),contador=$('contador'),searchBox=$('searchBox'),clearBtn=$('clearBtn'),tagsContainer=$('tagsContainer');
 const mezclar=a=>[...a].sort(()=>0.5-Math.random());
 const KW=[...new Set(D.modelos.flatMap(m=>String(m.keys||'').split(/\s+/).filter(Boolean)))];
-function generarTags(){tagsContainer.innerHTML='';['Todos',...mezclar(KW).slice(0,4)].forEach(p=>{const s=document.createElement('span');s.className='tag';s.textContent='✦ '+p;s.onclick=()=>{const w=p.toLowerCase()==='todos'?'':p;buscador.value=w;searchBox.classList.toggle('has-text',!!w);filtrar(w)};tagsContainer.appendChild(s)})}
-function renderModelos(l){contador.textContent=l.length+' modelos';cont.innerHTML=mezclar(l).map(m=>`<div class="model-card"><div class="card-img" style="${bg(m)}"></div><div class="card-info"><b>${E(m.titulo)}</b><span>${E(m.precio)}</span></div><button data-mod="${D.modelos.indexOf(m)}">Seleccionar modelo</button></div>`).join('')}
-function filtrar(q){if(!q||q.toLowerCase()==='todos'){renderModelos(D.modelos);return}const low=q.toLowerCase(),f=D.modelos.filter(m=>(m.titulo+' '+m.precio+' '+m.keys).toLowerCase().includes(low));renderModelos(f.length?f:D.modelos)}
+function generarTags(){tagsContainer.innerHTML='';['Todos',...mezclar(KW).slice(0,4)].forEach(p=>{const s=document.createElement('span');s.className='tag';s.textContent='✦ '+p;s.onclick=()=>{const w=p.toLowerCase()==='todos'?'':p;buscador.value=w;searchBox.classList.toggle('has-text',!!w);filtrar(w,true)};tagsContainer.appendChild(s)})}
+function renderModelos(l){contador.textContent=l.length+' modelos';if(!l.length){cont.innerHTML='<p style="opacity:.6;padding:20px 0">No hay modelos con esa palabra clave.</p>';return}cont.innerHTML=mezclar(l).map(m=>`<div class="model-card"><div class="card-img" style="${bg(m)}"></div><div class="card-info"><b>${E(m.titulo)}</b><span>${E(m.precio)}</span></div><button data-mod="${D.modelos.indexOf(m)}">Seleccionar modelo</button></div>`).join('')}
+function filtrar(q,exacto){
+  if(!q||q.toLowerCase()==='todos'){renderModelos(D.modelos);return}
+  const low=q.toLowerCase();
+  renderModelos(D.modelos.filter(m=>{
+    const ks=String(m.keys||'').toLowerCase().split(/\s+/).filter(Boolean);
+    return exacto?ks.includes(low):(ks.some(k=>k.includes(low))||String(m.titulo).toLowerCase().includes(low));
+  }));
+}
 generarTags();renderModelos(D.modelos);
 buscador.addEventListener('input',()=>{const q=buscador.value.trim();searchBox.classList.toggle('has-text',!!q);if(!q)generarTags();filtrar(q)});
 clearBtn.addEventListener('click',()=>{buscador.value='';searchBox.classList.remove('has-text');renderModelos(D.modelos);generarTags()});
