@@ -31,7 +31,8 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:transparent;trans
 .carousel{display:flex;gap:14px;overflow-x:auto;padding:14px 16px 26px 14px;margin-left:-14px;scrollbar-width:none}
 .carousel::-webkit-scrollbar{display:none}
 .card,.model-card{flex:0 0 78vw;max-width:300px;background:#0f0f0f;border-radius:16px;display:flex;flex-direction:column}
-.pic{display:block;width:100%;height:auto;border-radius:16px 16px 0 0}
+.nores{opacity:.6;padding:20px 0;font-size:14px}
+.pic{display:block;width:100%;height:auto;flex:1 0 auto;object-fit:cover;border-radius:16px 16px 0 0}
 .pic.empty{height:170px;background:#000}
 @property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
 @keyframes spin{to{--a:360deg}}
@@ -84,8 +85,8 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:transparent;trans
 const D=(()=>{try{if(/preview/.test(location.search)){const d=localStorage.getItem('joelwebs_draft');if(d)return JSON.parse(d)}}catch(e){}return window.SITE_DATA})();
 const $=id=>document.getElementById(id);
 const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const pic=o=>o.img?`<img class="pic" src="${E(encodeURI(o.img))}" alt="" loading="lazy">`:'<div class="pic empty"></div>';
-const fixImgs=()=>document.querySelectorAll('img.pic').forEach(im=>{const f=()=>im.replaceWith(Object.assign(document.createElement('div'),{className:'pic empty'}));im.onerror=f;if(im.complete&&!im.naturalWidth)f()});
+const pic=o=>o.img?`<img class="pic" src="${E(encodeURI(o.img))}" alt="">`:'<div class="pic empty"></div>';
+const fixImgs=()=>document.querySelectorAll('img.pic').forEach(im=>{im.onerror=()=>im.replaceWith(Object.assign(document.createElement('div'),{className:'pic empty'}))});
 const fill=(t,n,p)=>String(t).replace('{n}',n).replace('{p}',p);
 const M=D.marca,C=D.contacto,S=D.secciones;
 const ST=Object.assign({ledModo:'fijo',ledColor:'#ffffff',rgbColores:['#ff0055','#00ff88','#0055ff'],ledVelocidad:'4'},D.estilo||{});
@@ -104,30 +105,50 @@ $('app').innerHTML=`
 <div class="hero" id="inicio"><h1>${E(D.hero.titulo)}</h1><p>${E(D.hero.texto)}</p>
 <div class="search" id="searchBox"><input id="buscador" placeholder="${E(D.hero.placeholder)}" autocomplete="off"><button class="clear-btn" id="clearBtn">✕</button></div>
 <div class="tags" id="tagsContainer"></div></div>
-<div class="section" id="planes"><div class="sec-head"><h2>${E(S.planes)}</h2></div><div class="carousel">${D.planes.map((p,i)=>`<div class="card led">${pic(p)}<div class="card-info"><b>${E(p.nombre)}</b><span>${E(p.precio)}</span></div><div class="card-desc">${E(p.desc)}</div><button data-plan="${i}">Seleccionar plan</button></div>`).join('')}</div></div>
+<div class="section" id="planes"><div class="sec-head"><h2>${E(S.planes)}</h2></div><div class="carousel" id="carouselPlanes"></div></div>
 <div class="section" id="modelos"><div class="sec-head"><h2>${E(S.modelos)}</h2><span id="contador"></span></div><div class="carousel" id="carouselModelos"></div></div>
-<div class="section" id="portafolio"><div class="sec-head"><h2>${E(S.portafolio)}</h2></div><div class="carousel">${D.portafolio.map(p=>`<div class="bg-card led">${pic(p)}<div class="label">${E(p.nombre)} <small>${E(p.plan)}</small></div></div>`).join('')}</div></div>
+<div class="section" id="portafolio"><div class="sec-head"><h2>${E(S.portafolio)}</h2></div><div class="carousel" id="carouselPorta"></div></div>
 <div class="section" id="preguntas"><div class="sec-head"><h2>${E(S.preguntas)}</h2></div><div class="preguntas-grid">${D.preguntas.map(q=>`<div class="pregunta-card"><h3>${E(q.q)}</h3><p>${E(q.a)}</p></div>`).join('')}</div></div>
 <div class="cta" id="cotizar"><h2 id="tituloCotizar">${E(C.titulo)}</h2><a id="btnCotizar" href="${wa(C.msgGeneral)}">${E(C.boton)}</a></div>`;
 
 $('inicio').prepend($('videoFondo'));fixImgs();
-/* Buscador y modelos */
-const cont=$('carouselModelos'),buscador=$('buscador'),contador=$('contador'),searchBox=$('searchBox'),clearBtn=$('clearBtn'),tagsContainer=$('tagsContainer');
+/* Buscador: filtra planes, modelos y portafolio; sugerencias automáticas */
+const buscador=$('buscador'),contador=$('contador'),searchBox=$('searchBox'),clearBtn=$('clearBtn'),tagsContainer=$('tagsContainer');
 const mezclar=a=>[...a].sort(()=>0.5-Math.random());
-const KW=[...new Set(D.modelos.flatMap(m=>String(m.keys||'').split(/\s+/).filter(Boolean)))];
-function generarTags(){tagsContainer.innerHTML='';['Todos',...mezclar(KW).slice(0,4)].forEach(p=>{const s=document.createElement('span');s.className='tag';s.textContent='✦ '+p;s.onclick=()=>{const w=p.toLowerCase()==='todos'?'':p;buscador.value=w;searchBox.classList.toggle('has-text',!!w);filtrar(w,true)};tagsContainer.appendChild(s)})}
-function renderModelos(l){contador.textContent=l.length+' modelos';if(!l.length){cont.innerHTML='<p style="opacity:.6;padding:20px 0">No hay modelos con esa palabra clave.</p>';return}cont.innerHTML=mezclar(l).map(m=>`<div class="model-card led">${pic(m)}<div class="card-info"><b>${E(m.titulo)}</b><span>${E(m.precio)}</span></div><button data-mod="${D.modelos.indexOf(m)}">Seleccionar modelo</button></div>`).join('');fixImgs()}
-function filtrar(q,exacto){
-  if(!q||q.toLowerCase()==='todos'){renderModelos(D.modelos);return}
-  const low=q.toLowerCase();
-  renderModelos(D.modelos.filter(m=>{
-    const ks=String(m.keys||'').toLowerCase().split(/\s+/).filter(Boolean);
-    return exacto?ks.includes(low):(ks.some(k=>k.includes(low))||String(m.titulo).toLowerCase().includes(low));
-  }));
+const norm=s=>String(s==null?'':s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const words=s=>norm(s).split(/[^a-z0-9]+/).filter(Boolean);
+const cPlan=(p,i)=>`<div class="card led">${pic(p)}<div class="card-info"><b>${E(p.nombre)}</b><span>${E(p.precio)}</span></div><div class="card-desc">${E(p.desc)}</div><button data-plan="${i}">Seleccionar plan</button></div>`;
+const cMod=(m,i)=>`<div class="model-card led">${pic(m)}<div class="card-info"><b>${E(m.titulo)}</b><span>${E(m.precio)}</span></div><button data-mod="${i}">Seleccionar modelo</button></div>`;
+const cPor=p=>`<div class="bg-card led">${pic(p)}<div class="label">${E(p.nombre)} <small>${E(p.plan)}</small></div></div>`;
+function pintar(q,exacto){
+  const nq=norm(q).trim(),todo=!nq||nq==='todos';
+  const ok=o=>todo||(exacto?words([o.nombre,o.titulo,o.plan,o.keys].join(' ')).includes(nq):norm([o.nombre,o.titulo,o.plan,o.keys,o.precio].join(' ')).includes(nq));
+  const fill=(id,arr,fn,msg)=>{const h=arr.map((o,i)=>ok(o)?fn(o,i):'').join('');$(id).innerHTML=h||`<p class="nores">${msg}</p>`;return arr.filter(ok).length};
+  fill('carouselPlanes',D.planes,cPlan,'No hay planes con esa palabra clave.');
+  contador.textContent=fill('carouselModelos',D.modelos,cMod,'No hay modelos con esa palabra clave.')+' modelos';
+  fill('carouselPorta',D.portafolio,cPor,'No hay trabajos con esa palabra clave.');
+  fixImgs();
 }
-generarTags();renderModelos(D.modelos);
-buscador.addEventListener('input',()=>{const q=buscador.value.trim();searchBox.classList.toggle('has-text',!!q);if(!q)generarTags();filtrar(q)});
-clearBtn.addEventListener('click',()=>{buscador.value='';searchBox.classList.remove('has-text');renderModelos(D.modelos);generarTags()});
+/* Cada plan, modelo y trabajo del portafolio aporta palabras clave automáticamente */
+const STOP=new Set('de del la el los las y e o con para en un una al por que plan planes modelo modelos web sitio pagina'.split(' '));
+function pool(){
+  const m=new Map(),add=t=>String(t||'').split(/[^\p{L}\p{N}]+/u).forEach(w=>{const n=norm(w);if(w.length<3||STOP.has(n)||/\d/.test(n)||m.has(n))return;m.set(n,w.charAt(0).toUpperCase()+w.slice(1))});
+  D.planes.forEach(p=>add(p.nombre+' '+(p.keys||'')));
+  D.modelos.forEach(x=>add(x.titulo+' '+(x.keys||'')));
+  D.portafolio.forEach(x=>add(x.nombre+' '+x.plan+' '+(x.keys||'')));
+  return [...m.values()];
+}
+function generarTags(){
+  tagsContainer.innerHTML='';
+  ['Todos',...mezclar(pool()).slice(0,4)].forEach(p=>{
+    const s=document.createElement('span');s.className='tag';s.textContent='✦ '+p;
+    s.onclick=()=>{const w=p==='Todos'?'':p;buscador.value=w;searchBox.classList.toggle('has-text',!!w);pintar(w,true);if(w)$('modelos').scrollIntoView({behavior:'smooth'})};
+    tagsContainer.appendChild(s);
+  });
+}
+generarTags();pintar('');
+buscador.addEventListener('input',()=>{const q=buscador.value.trim();searchBox.classList.toggle('has-text',!!q);if(!q)generarTags();pintar(q,false)});
+clearBtn.addEventListener('click',()=>{buscador.value='';searchBox.classList.remove('has-text');pintar('');generarTags()});
 
 /* Selección → WhatsApp */
 function elegir(titulo,msg,n,p){const u=wa(fill(msg,n,p));$('tituloCotizar').textContent=fill(titulo,n,p);$('btnCotizar').href=u;$('cotizar').scrollIntoView({behavior:'smooth'});setTimeout(()=>window.open(u,'_blank'),600)}
