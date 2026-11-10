@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · Joel Webs</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{background:#050505;color:#fff;font:14px Inter,system-ui,sans-serif;padding-bottom:80px}
+header{position:sticky;top:0;z-index:5;background:#0b0b0bee;border-bottom:1px solid #222;padding:10px 14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+header b{margin-right:auto}
+button{background:#fff;color:#000;border:0;border-radius:99px;padding:8px 14px;font-weight:700;font-size:12px;cursor:pointer}
+button.g{background:#1c1c1c;color:#fff;border:1px solid #333}
+button.r{background:#3a1010;color:#ff8080;border:1px solid #5a2020}
+main{max-width:760px;margin:0 auto;padding:14px}
+details{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:14px;margin-bottom:10px}
+summary{padding:14px;font-weight:700;cursor:pointer}
+.in{padding:0 14px 14px}
+.item{border:1px solid #222;border-radius:12px;padding:10px;margin-bottom:10px;background:#0a0a0a}
+label{display:block;font-size:11px;opacity:.6;margin:8px 0 3px}
+input,textarea{width:100%;background:#151515;border:1px solid #2a2a2a;border-radius:8px;color:#fff;padding:9px;font:inherit}
+textarea{min-height:64px;resize:vertical}
+.row{display:flex;gap:6px;align-items:center}.row input{flex:1}
+.th{width:44px;height:44px;border-radius:8px;object-fit:cover;background:#222}
+.bar{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+#msg{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:#fff;color:#000;padding:10px 16px;border-radius:99px;font-weight:700;font-size:12px;display:none;z-index:30;max-width:90vw;text-align:center}
+#login{position:fixed;inset:0;background:#050505;z-index:20;display:grid;place-items:center;padding:20px}
+#login div{width:100%;max-width:300px;display:grid;gap:10px;text-align:center}
+.note{font-size:12px;opacity:.6;line-height:1.5;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div id="login"><div><h2>Admin · Joel Webs</h2><input id="pw" type="password" placeholder="Clave" autocomplete="current-password"><button id="go">Entrar</button></div></div>
+<header><b>Admin</b><button class="g" id="bPrev">Vista previa</button><button class="g" id="bDown">Descargar</button><button class="g" id="bSave">Guardar en carpeta</button><button id="bGh">Publicar en GitHub</button></header>
+<main><p class="note">Edita el contenido y pulsa <b>Publicar en GitHub</b>: sube las imágenes nuevas a <b>imagenes/</b> y actualiza <b>content/data.js</b> directamente en tu repositorio (Cloudflare Pages lo publica solo). Primero completa <b>Conexión con GitHub</b>. Alternativas sin GitHub: <b>Guardar en carpeta</b> (Chrome/Edge) o <b>Descargar</b>.</p><div id="m"></div></main>
+<div id="msg"></div>
+<script src="content/data.js"></script>
+<script>
+const PASS='joelwebs2026'; // cámbiala aquí. Para seguridad real, protege /admin con Cloudflare Access.
+const $=id=>document.getElementById(id);
+const clone=o=>JSON.parse(JSON.stringify(o));
+let D=clone(window.SITE_DATA),files={},dir=null,abierto='marca';
+const G="linear-gradient(135deg,#222,#000)";
+const S=[
+{t:'Nombre, logo y video',p:'marca',k:'obj',f:[['nombre','Nombre'],['logo','Logo','file'],['video','Video de fondo','file']]},
+{t:'Inicio (textos)',p:'hero',k:'obj',f:[['titulo','Título'],['texto','Texto','area'],['placeholder','Texto del buscador']]},
+{t:'Títulos de secciones',p:'secciones',k:'obj',f:[['planes','Planes'],['modelos','Modelos'],['portafolio','Portafolio'],['preguntas','Preguntas']]},
+{t:'Planes',p:'planes',k:'arr',f:[['nombre','Nombre'],['precio','Precio'],['desc','Descripción','area'],['img','Imagen','file']],n:{nombre:'',precio:'',desc:'',img:'',grad:G}},
+{t:'Modelos (las palabras clave crean las sugerencias del buscador)',p:'modelos',k:'arr',f:[['titulo','Título'],['precio','Precio'],['keys','Palabras clave separadas por espacio'],['img','Imagen','file']],n:{titulo:'',precio:'',keys:'',img:'',grad:G}},
+{t:'Portafolio',p:'portafolio',k:'arr',f:[['nombre','Nombre'],['plan','Plan'],['img','Imagen','file']],n:{nombre:'',plan:'',img:'',grad:G}},
+{t:'Preguntas frecuentes',p:'preguntas',k:'arr',f:[['q','Pregunta'],['a','Respuesta','area']],n:{q:'',a:''}},
+{t:'WhatsApp y mensajes',p:'contacto',k:'obj',f:[['whatsapp','WhatsApp (con código de país, sin +)'],['titulo','Título','area'],['boton','Texto del botón'],['msgGeneral','Mensaje general'],['tituloPlan','Título al elegir plan ({n} nombre, {p} precio)','area'],['msgPlan','Mensaje al elegir plan'],['tituloModelo','Título al elegir modelo','area'],['msgModelo','Mensaje al elegir modelo']]},
+{t:'Pie de página',p:'footer',k:'strs'}
+];
+function toast(t){const m=$('msg');m.textContent=t;m.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>m.style.display='none',3500)}
+const dirty=()=>{try{localStorage.setItem('joelwebs_draft',JSON.stringify(D))}catch(e){}};
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function btn(t,fn,c){const b=el('button',c||'',t);b.onclick=fn;return b}
+function inp(o,key,label,kind){
+  const w=el('div'),i=el(kind==='area'?'textarea':'input');w.append(el('label','',label));i.value=o[key]==null?'':o[key];
+  i.oninput=()=>{o[key]=i.value;dirty()};
+  if(kind!=='file'){w.append(i);return w}
+  const r=el('div','row'),th=el('img','th'),b=el('button','g','Subir'),f=el('input');
+  f.type='file';f.accept='image/*,video/*';f.hidden=true;th.alt='';
+  const show=()=>{th.style.visibility=i.value?'visible':'hidden';if(i.value)th.src=i.value};th.onerror=()=>th.style.visibility='hidden';show();
+  i.oninput=()=>{o[key]=i.value;show();dirty()};
+  b.onclick=()=>f.click();
+  f.onchange=()=>{const x=f.files[0];if(!x)return;const p='imagenes/'+x.name.replace(/[^\w.\-]/g,'_');files[p]=x;o[key]=p;i.value=p;th.style.visibility='visible';th.src=URL.createObjectURL(x);dirty();toast('Pendiente de guardar: '+p)};
+  r.append(th,i,b,f);w.append(r);return w;
+}
+function mover(a,i,d){const j=i+d;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];render();dirty()}
+const GH=()=>{try{return JSON.parse(localStorage.getItem('joelwebs_gh')||'{}')}catch(e){return {}}};
+function cfgBox(){
+  const d=el('details'),b=el('div','in'),st=GH();d.open=abierto==='gh';d.ontoggle=()=>{if(d.open)abierto='gh'};d.append(el('summary','','Conexión con GitHub'),b);
+  [['repo','Repositorio (usuario/repositorio)'],['branch','Rama (por defecto main)'],['base','Carpeta del sitio dentro del repo (vacío si index.html está en la raíz)'],['token','Token de acceso (fine-grained, permiso Contents: Read and write)','password']].forEach(([k,l,t])=>{
+    const w=inp(st,k,l),i=w.querySelector('input');if(t)i.type=t;
+    i.oninput=()=>{st[k]=i.value.trim();localStorage.setItem('joelwebs_gh',JSON.stringify(st))};b.append(w)});
+  b.append(el('p','note','El token se guarda solo en este navegador. Créalo en GitHub → Settings → Developer settings → Fine-grained tokens, limitado a este repositorio. Es lo que protege la publicación: sin él nadie puede cambiar tu sitio.'));
+  return d;
+}
+function render(){
+  const m=$('m');m.innerHTML='';m.append(cfgBox());
+  S.forEach(s=>{
+    const d=el('details'),b=el('div','in'),v=D[s.p];d.open=abierto===s.p;
+    d.ontoggle=()=>{if(d.open)abierto=s.p};d.append(el('summary','',s.t),b);
+    if(s.k==='obj')s.f.forEach(f=>b.append(inp(v,f[0],f[1],f[2])));
+    if(s.k==='arr'){
+      v.forEach((o,i)=>{const it=el('div','item'),bar=el('div','bar');
+        s.f.forEach(f=>it.append(inp(o,f[0],f[1],f[2])));
+        bar.append(btn('↑',()=>mover(v,i,-1),'g'),btn('↓',()=>mover(v,i,1),'g'),btn('Eliminar',()=>{if(confirm('¿Eliminar este elemento?')){v.splice(i,1);render();dirty()}},'r'));
+        it.append(bar);b.append(it)});
+      b.append(btn('+ Agregar',()=>{v.push({...s.n});render();dirty()}));
+    }
+    if(s.k==='strs'){
+      v.forEach((t,i)=>{const r=el('div','row'),x=el('input');x.value=t;x.oninput=()=>{v[i]=x.value;dirty()};r.style.marginBottom='6px';r.append(x,btn('✕',()=>{v.splice(i,1);render();dirty()},'r'));b.append(r)});
+      b.append(btn('+ Agregar',()=>{v.push('');render();dirty()}));
+    }
+    m.append(d);
+  });
+}
+const dataText=()=>'window.SITE_DATA='+JSON.stringify(D,null,2)+';\n';
+async function escribir(h,n,c){const f=await h.getFileHandle(n,{create:true}),w=await f.createWritable();await w.write(c);await w.close()}
+async function guardar(){
+  if(!window.showDirectoryPicker){descargar();return}
+  try{
+    if(!dir)dir=await showDirectoryPicker({mode:'readwrite'});
+    await escribir(await dir.getDirectoryHandle('content',{create:true}),'data.js',dataText());
+    const im=await dir.getDirectoryHandle('imagenes',{create:true});
+    for(const p of Object.keys(files)){await escribir(im,p.split('/')[1],files[p]);delete files[p]}
+    try{localStorage.removeItem('joelwebs_draft')}catch(e){}
+    toast('Guardado en la carpeta ✓');
+  }catch(e){dir=null;if(e.name!=='AbortError')toast('No se guardó: '+e.message)}
+}
+function dl(b,n){const a=el('a');a.href=URL.createObjectURL(b);a.download=n;a.click()}
+function descargar(){dl(new Blob([dataText()],{type:'text/javascript'}),'data.js');Object.keys(files).forEach(p=>dl(files[p],p.split('/')[1]));toast('Copia data.js a content/ y las imágenes a imagenes/')}
+const b64=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result.split(',')[1]);r.onerror=()=>no(new Error('No se pudo leer '+f.name));r.readAsDataURL(f)});
+async function ghPut(c,path,content,msg){
+  const base=c.base?c.base.replace(/^\/+|\/+$/g,'')+'/':'',url='https://api.github.com/repos/'+c.repo+'/contents/'+base+path;
+  const H={Authorization:'Bearer '+c.token,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
+  let sha;const r=await fetch(url+'?ref='+encodeURIComponent(c.branch),{headers:H});
+  if(r.ok)sha=(await r.json()).sha;else if(r.status===401)throw new Error('Token inválido o vencido');else if(r.status!==404)throw new Error('GitHub respondió '+r.status+' (revisa repositorio y rama)');
+  const p=await fetch(url,{method:'PUT',headers:H,body:JSON.stringify({message:msg,content,branch:c.branch,sha})});
+  if(!p.ok){let m=p.status;try{m=(await p.json()).message}catch(e){}throw new Error(m)}
+}
+async function publicar(){
+  const c=GH();c.branch=c.branch||'main';
+  if(!c.repo||!c.token){abierto='gh';render();toast('Completa la conexión con GitHub');return}
+  const bt=$('bGh');bt.disabled=true;
+  try{
+    const ks=Object.keys(files);let n=0;
+    for(const p of ks){toast('Subiendo '+p+' ('+(++n)+'/'+ks.length+')…');await ghPut(c,p,await b64(files[p]),'Admin: '+p);delete files[p]}
+    toast('Subiendo contenido…');
+    await ghPut(c,'content/data.js',btoa(unescape(encodeURIComponent(dataText()))),'Admin: actualizar contenido');
+    try{localStorage.removeItem('joelwebs_draft')}catch(e){}
+    toast('Publicado ✓ En 1–2 minutos se ve en el sitio');
+  }catch(e){toast('Error: '+e.message)}
+  bt.disabled=false;
+}
+$('bGh').onclick=publicar;
+$('bSave').onclick=guardar;$('bDown').onclick=descargar;
+$('bPrev').onclick=()=>{dirty();window.open('index.html?preview=1','_blank')};
+function iniciar(){
+  try{const d=localStorage.getItem('joelwebs_draft');if(d&&d!==JSON.stringify(D)&&confirm('Hay cambios sin guardar de la última vez. ¿Recuperarlos?'))D=JSON.parse(d)}catch(e){}
+  render();
+}
+function entrar(){if($('pw').value===PASS){sessionStorage.setItem('adm','1');$('login').remove();iniciar()}else toast('Clave incorrecta')}
+$('go').onclick=entrar;$('pw').onkeydown=e=>{if(e.key==='Enter')entrar()};
+if(sessionStorage.getItem('adm')){$('login').remove();iniciar()}
+</script>
+</body>
+</html>
