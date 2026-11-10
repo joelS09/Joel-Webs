@@ -167,7 +167,6 @@ window.SITE_DATA={
   },
   "footer": [
     "JoelWebs_Anthropic_GitHub_Cloudflare",
-    "WebsStudio_Corporation",
-    "Piura_Perú_©2026 todos los derechos reservados"
+    "©2026 todos los derechos reservados"
   ]
 };
