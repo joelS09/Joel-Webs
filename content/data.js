@@ -45,7 +45,7 @@ window.SITE_DATA={
       "nombre": "Plan Básico",
       "precio": "S/30",
       "desc": "Para blogs, invitaciones digitales o CV.\nUna página simple y limpia.",
-      "img": "imagenes/612330.jpg",
+      "img": "imagenes/590800.jpg",
       "grad": "linear-gradient(135deg,#222,#000)"
     },
     {
@@ -59,7 +59,7 @@ window.SITE_DATA={
       "nombre": "Plan Pro",
       "precio": "S/150",
       "desc": "Diseños con animaciones fluidas e interactivas.\nPara tiendas, negocios, APKs, restaurantes y tiendas online.",
-      "img": "imagenes/612328.jpg",
+      "img": "imagenes/590779.jpg",
       "grad": "linear-gradient(135deg,#ff7a00,#000)"
     },
     {
@@ -170,12 +170,12 @@ window.SITE_DATA={
     "©2026 todos los derechos reservados"
   ],
   "estilo": {
-    "ledModo": "rgb",
+    "ledModo": "fijo",
     "ledColor": "#ffffff",
     "rgbColores": [
-      "#ffffff",
-      "#000000",
-      "#616161"
+      "#ff0055",
+      "#00ff88",
+      "#0055ff"
     ],
     "ledVelocidad": "4"
   }
