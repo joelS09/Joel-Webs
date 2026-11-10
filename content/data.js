@@ -2,7 +2,7 @@ window.SITE_DATA={
   "marca": {
     "nombre": "JOEL WEBS",
     "logo": "imagenes/610791.jpg",
-    "video": "imagenes/610954.mp4"
+    "video": "imagenes/611890.mp4"
   },
   "menu": [
     {
@@ -45,28 +45,28 @@ window.SITE_DATA={
       "nombre": "Plan Básico",
       "precio": "S/30",
       "desc": "Para blogs, invitaciones digitales o CV.\nUna página simple y limpia.",
-      "img": "",
+      "img": "imagenes/590796.jpg",
       "grad": "linear-gradient(135deg,#222,#000)"
     },
     {
       "nombre": "Plan Básico S",
       "precio": "S/75",
       "desc": "Para promocionar productos.\nCon microanimaciones, mejores colores y diseño más vivo.",
-      "img": "",
+      "img": "imagenes/611928.jpg",
       "grad": "linear-gradient(135deg,#00ff88,#0055ff)"
     },
     {
       "nombre": "Plan Pro",
       "precio": "S/150",
       "desc": "Diseños con animaciones fluidas e interactivas.\nPara tiendas, negocios, APKs, restaurantes y tiendas online.",
-      "img": "",
+      "img": "imagenes/590844.jpg",
       "grad": "linear-gradient(135deg,#ff7a00,#000)"
     },
     {
       "nombre": "Plan Ultra",
       "precio": "S/250",
       "desc": "Todo lo del Pro + animaciones VIP profesionales, acabados premium, efectos más fluidos con una apariencia que sorprende.",
-      "img": "",
+      "img": "imagenes/590849.jpg",
       "grad": "linear-gradient(135deg,#ff0055,#000)"
     }
   ],
@@ -100,7 +100,7 @@ window.SITE_DATA={
       "grad": "linear-gradient(135deg,#4a00ff,#00ffcc)"
     },
     {
-      "titulo": "Tony Barber",
+      "titulo": "Barber",
       "precio": "S/150",
       "keys": "Barber Pro",
       "img": "",
