@@ -1,8 +1,8 @@
 window.SITE_DATA={
   "marca": {
-    "nombre": "Joel Webs Studio",
-    "logo": "imagenes/612999.jpg",
-    "video": "imagenes/612899.mp4"
+    "nombre": "Joel Webs Studio ",
+    "logo": "imagenes/610788.jpg",
+    "video": "imagenes/612999.jpg"
   },
   "menu": [
     {
