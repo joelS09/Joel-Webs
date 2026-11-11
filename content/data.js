@@ -1,8 +1,8 @@
 window.SITE_DATA={
   "marca": {
-    "nombre": "JOEL WEBS",
-    "logo": "imagenes/610788.jpg",
-    "video": "imagenes/611890.mp4"
+    "nombre": "Joel Webs Studio ",
+    "logo": "imagenes/612999.jpg",
+    "video": "imagenes/612933.mp4"
   },
   "menu": [
     {
@@ -153,6 +153,10 @@ window.SITE_DATA={
     {
       "q": "¿Cómo realizo el pago?",
       "a": "Yape o transferencia bancaria."
+    },
+    {
+      "q": "¿Si no me convence la página puedo cambiarla después? ",
+      "a": "Sí, nosotros te accesoramos para que tu web quede como la imaginaste. "
     }
   ],
   "contacto": {
@@ -170,16 +174,16 @@ window.SITE_DATA={
     "©2026 todos los derechos reservados"
   ],
   "estilo": {
-    "ledModo": "fijo",
+    "ledModo": "rgb",
     "ledColor": "#ffffff",
     "generalModo": "fijo",
     "generalColor": "#ffffff",
     "botonModo": "fijo",
     "botonColor": "#ffffff",
     "rgbColores": [
-      "#ff0055",
-      "#00ff88",
-      "#0055ff"
+      "#ffffff",
+      "#000000",
+      "#6e6e6e"
     ],
     "ledVelocidad": "4"
   }
