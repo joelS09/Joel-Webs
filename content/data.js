@@ -1,8 +1,8 @@
 window.SITE_DATA={
   "marca": {
-    "nombre": "Joel Webs Studio ",
-    "logo": "imagenes/612999.jpg",
-    "video": "imagenes/612933.mp4"
+    "nombre": "JOEL WEBS",
+    "logo": "imagenes/610788.jpg",
+    "video": "imagenes/611890.mp4"
   },
   "menu": [
     {
@@ -170,13 +170,16 @@ window.SITE_DATA={
     "©2026 todos los derechos reservados"
   ],
   "estilo": {
-    "ledModo": "rgb",
+    "ledModo": "fijo",
     "ledColor": "#ffffff",
+    "generalModo": "fijo",
+    "generalColor": "#ffffff",
+    "botonModo": "fijo",
+    "botonColor": "#ffffff",
     "rgbColores": [
-      "#ff0000",
-      "#00ff00",
-      "#0000ff",
-      "#ffff00"
+      "#ff0055",
+      "#00ff88",
+      "#0055ff"
     ],
     "ledVelocidad": "4"
   }
