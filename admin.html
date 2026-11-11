@@ -50,8 +50,12 @@ const S=[
 {t:'Planes',p:'planes',k:'arr',f:[['nombre','Nombre'],['precio','Precio'],['desc','Descripción','area'],['keys','Palabras clave extra (opcional, el nombre ya cuenta)'],['img','Imagen','file']],n:{nombre:'',precio:'',desc:'',keys:'',img:'',grad:G}},
 {t:'Modelos (nombre y palabras clave crean las sugerencias del buscador)',p:'modelos',k:'arr',f:[['titulo','Título'],['precio','Precio'],['keys','Palabras clave separadas por espacio'],['img','Imagen','file']],n:{titulo:'',precio:'',keys:'',img:'',grad:G}},
 {t:'Portafolio',p:'portafolio',k:'arr',f:[['nombre','Nombre'],['plan','Plan'],['keys','Palabras clave extra (opcional, el nombre ya cuenta)'],['img','Imagen','file']],n:{nombre:'',plan:'',keys:'',img:'',grad:G}},
-{t:'Contorno LED de las tarjetas',p:'estilo',k:'obj',f:[['ledModo','Modo','select',['fijo','rgb']],['ledColor','Color del modo fijo','color'],['ledVelocidad','Velocidad del RGB en segundos (menor = más rápido)']]},
-{t:'Colores del modo RGB (agrega los que quieras)',p:'estilo.rgbColores',k:'strs',c:1},
+{t:'Colores del sitio (general, márgenes y botones)',p:'estilo',k:'obj',f:[
+['generalModo','COLOR GENERAL · modo (fijo = un color, rgb = cambia solo)','select',['fijo','rgb']],['generalColor','Color general (acentos, iconos, menú activo, brillos)','color'],
+['ledModo','MÁRGENES · modo (fijo = un color, rgb = cambia solo)','select',['fijo','rgb']],['ledColor','Color de los márgenes (contorno de tarjetas, buscador, sugerencias y menú)','color'],
+['botonModo','BOTONES · modo (fijo = un color, rgb = cambia solo)','select',['fijo','rgb']],['botonColor','Color de los botones (el texto se ajusta solo para que se lea)','color'],
+['ledVelocidad','Velocidad del RGB en segundos (menor = más rápido)']]},
+{t:'Colores del modo RGB (agrega los que quieras, mínimo 2)',p:'estilo.rgbColores',k:'strs',c:1},
 {t:'Preguntas frecuentes',p:'preguntas',k:'arr',f:[['q','Pregunta'],['a','Respuesta','area']],n:{q:'',a:''}},
 {t:'WhatsApp y mensajes',p:'contacto',k:'obj',f:[['whatsapp','WhatsApp (con código de país, sin +)'],['titulo','Título','area'],['boton','Texto del botón'],['msgGeneral','Mensaje general'],['tituloPlan','Título al elegir plan ({n} nombre, {p} precio)','area'],['msgPlan','Mensaje al elegir plan'],['tituloModelo','Título al elegir modelo','area'],['msgModelo','Mensaje al elegir modelo']]},
 {t:'Pie de página',p:'footer',k:'strs'}
@@ -146,7 +150,7 @@ async function publicar(){
 $('bGh').onclick=publicar;
 $('bSave').onclick=guardar;$('bDown').onclick=descargar;
 $('bPrev').onclick=()=>{dirty();window.open('index.html?preview=1','_blank')};
-const ESTILO={ledModo:'fijo',ledColor:'#ffffff',rgbColores:['#ff0055','#00ff88','#0055ff'],ledVelocidad:'4'};
+const ESTILO={ledModo:'fijo',ledColor:'#ffffff',generalModo:'fijo',generalColor:'#ffffff',botonModo:'fijo',botonColor:'#ffffff',rgbColores:['#ff0055','#00ff88','#0055ff'],ledVelocidad:'4'};
 function iniciar(){
   try{const d=localStorage.getItem('joelwebs_draft');if(d&&d!==JSON.stringify(D)&&confirm('Hay cambios sin guardar de la última vez. ¿Recuperarlos?'))D=JSON.parse(d)}catch(e){}
   D.estilo=Object.assign({},ESTILO,D.estilo||{});
