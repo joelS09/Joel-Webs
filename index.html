@@ -16,10 +16,9 @@
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
 body{background:#050505;color:#fff;font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
 .bgv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.nav-solid{background:rgba(0,0,0,.35) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.logo{font-weight:900;font-size:18px;flex-shrink:0;text-shadow:0 2px 20px rgba(0,0,0,.9)}
-nav{position:fixed;top:0;left:0;right:0;height:58px;background:transparent;transition:background .4s;z-index:100;display:flex;align-items:center;padding:0 12px 0 16px;gap:8px;justify-content:space-between}
-.pill{flex-shrink:0;color:#fff;padding:9px 15px;border-radius:99px;font-weight:800;font-size:12px;text-shadow:0 1px 6px rgba(0,0,0,.6);text-decoration:none;white-space:nowrap;margin-left:auto}
+.logo{font-weight:900;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;}
+nav{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:0;right:0;margin:0 auto;width:min(440px,calc(100% - 28px));height:50px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 6px 0 18px;border-radius:28px;background:linear-gradient(180deg,rgba(52,52,56,.9),rgba(26,26,29,.92));-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 1px 1px rgba(255,255,255,.14),inset 0 -1px 2px rgba(0,0,0,.5),var(--lip)}
+.pill{flex-shrink:0;color:var(--acc);padding:9px 15px;border-radius:99px;font-weight:800;font-size:12px;background:linear-gradient(180deg,#3a3a3f,#222225);box-shadow:inset 0 1px 1px rgba(255,255,255,.18),0 2px 0 #0a0a0b;text-decoration:none;white-space:nowrap;margin-left:auto}
 .hero{position:relative;z-index:0;overflow:hidden;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 16px 40px}
 .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.5));z-index:-1}
 .hero h1{font-size:clamp(32px,8vw,72px);font-weight:800;letter-spacing:-2px;line-height:.95;max-width:700px;text-shadow:0 2px 24px rgba(0,0,0,.5)}
@@ -85,24 +84,24 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:transparent;trans
 .search{background-color:rgba(12,14,22,.55)}
 .tag{opacity:1;box-shadow:var(--ins),0 6px 16px rgba(0,0,0,.4)}
 .card .pic,.model-card .pic,.bg-card .pic{margin:-1px -1px 0;width:calc(100% + 2px)}
-/* ===== Barra inferior ===== */
+/* ===== Barras negras (estilo píldora 3D) ===== */
+:root{--acc:#9db4ff;--lip:0 4px 0 #0a0a0b,0 14px 26px rgba(0,0,0,.65)}
 @property --x{syntax:'<length>';initial-value:0px;inherits:true}
-.dock{position:fixed;left:0;right:0;bottom:calc(12px + env(safe-area-inset-bottom,0px));margin:0 auto;width:min(520px,calc(100% - 24px));height:66px;z-index:110;display:flex;align-items:center;padding:0 8px 0 10px;gap:4px;transition:--x .6s cubic-bezier(.34,1.35,.5,1)}
-.dock::before{content:"";position:absolute;inset:8px 12px -8px;border-radius:34px;background:rgba(0,0,0,.6);filter:blur(16px);z-index:-2}
-.dock-bg{position:absolute;inset:0;border-radius:34px;z-index:-1;box-shadow:var(--ins);-webkit-mask:radial-gradient(circle 34px at var(--x) -6px,transparent 33px,#000 34.5px);mask:radial-gradient(circle 34px at var(--x) -6px,transparent 33px,#000 34.5px)}
-.dock-logo{flex:0 0 48px;height:48px;border-radius:50%;display:grid;place-items:center;overflow:hidden;color:#fff;font-weight:900;text-decoration:none}
+.dock{position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));margin:0 auto;width:min(440px,calc(100% - 28px));height:54px;z-index:110;display:flex;align-items:center;padding:0 8px 0 7px;gap:2px;transition:--x .6s cubic-bezier(.34,1.35,.5,1)}
+.dock-bg{position:absolute;inset:0;border-radius:30px;z-index:-1;background:linear-gradient(180deg,#303034,#1c1c1f);box-shadow:inset 0 1px 1px rgba(255,255,255,.14),inset 0 -1px 2px rgba(0,0,0,.5),var(--lip)}
+.dock-bg::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(90% 60% at 12% 130%,rgba(0,150,255,.28),transparent 60%),radial-gradient(80% 60% at 95% 130%,rgba(255,0,170,.22),transparent 60%);pointer-events:none}
+.hump{position:absolute;left:calc(var(--x) - 38px);width:76px;top:-11px;bottom:2px;border-radius:26px 26px 14px 14px;background:linear-gradient(180deg,#38383d,#222226);box-shadow:inset 0 1px 1px rgba(255,255,255,.16),0 -3px 14px rgba(157,180,255,.22);z-index:0}
+.hump::after{content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid var(--acc);border-bottom:0;-webkit-mask:linear-gradient(#000 35%,transparent 92%);mask:linear-gradient(#000 35%,transparent 92%)}
+.dock-line{position:absolute;bottom:5px;left:calc(var(--x) + 30px);right:20px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--acc),rgba(157,180,255,0));z-index:0;pointer-events:none}
+.dock-logo,.nav-logo{flex:0 0 40px;height:40px;border-radius:50%;display:grid;place-items:center;overflow:hidden;color:var(--acc);font-weight:900;text-decoration:none;background:linear-gradient(180deg,#2a2a2d,#19191b);box-shadow:inset 0 2px 5px rgba(0,0,0,.7),inset 0 -1px 1px rgba(255,255,255,.1),0 1px 0 rgba(255,255,255,.07);position:relative;z-index:1}
 .dock-logo img{width:100%;height:100%;object-fit:cover;display:block}
-.tabs{flex:1;display:flex;min-width:0}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding-top:10px;color:rgba(255,255,255,.62);text-decoration:none;-webkit-tap-highlight-color:transparent;transition:color .3s}
-.tab svg{transition:opacity .25s,transform .4s}
-.tab .t{font-size:10px;font-weight:600;text-transform:lowercase;white-space:nowrap}
+.tabs{flex:1;display:flex;min-width:0;position:relative;z-index:1}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:rgba(255,255,255,.55);text-decoration:none;-webkit-tap-highlight-color:transparent;transition:color .3s,transform .5s cubic-bezier(.34,1.5,.5,1)}
+.tab svg{width:20px;height:20px}
+.tab .t{font-size:9.5px;font-weight:600;text-transform:lowercase;white-space:nowrap}
 .tab .t::first-letter{text-transform:uppercase}
-.tab.on{color:#fff}.tab.on svg{opacity:0;transform:translateY(8px)}.tab.on .t{font-weight:800}
-.bubble{position:absolute;left:calc(var(--x) - 27px);top:-33px;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:#10131f;background:radial-gradient(circle at 30% 22%,#fff,#e4ebff 58%,#b8c8ff);box-shadow:0 0 0 3px rgba(255,255,255,.22),0 8px 22px rgba(80,120,255,.6),inset 0 -4px 8px rgba(80,120,255,.35);pointer-events:none}
-.bubble.go{animation:squish .6s}
-.bubble span{display:grid;animation:pop .5s}
-@keyframes squish{0%{transform:scale(1)}30%{transform:scale(1.3,.76)}62%{transform:scale(.9,1.14)}100%{transform:scale(1)}}
-@keyframes pop{0%{transform:scale(.4) rotate(-40deg);opacity:0}100%{transform:none;opacity:1}}
+.tab.on{color:var(--acc);transform:translateY(-4px)}.tab.on .t{font-weight:800}
+.tab.on::after{content:"";width:4px;height:4px;border-radius:50%;background:var(--acc);margin-top:1px;box-shadow:0 0 6px var(--acc)}
 .footer{padding-bottom:120px}
 </style>
 </head>
@@ -110,10 +109,10 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:transparent;trans
 <div id="pre"><div><img id="preLogo" class="pre-logo" alt=""><div class="pt" id="preName"></div><div class="pl2"><span class="pb"></span><small id="pn">0%</small></div></div></div>
 <div id="prog"></div>
 <video class="bgv" id="videoFondo" autoplay muted loop playsinline preload="auto"></video>
-<nav><span class="logo" id="logo"></span><a href="#cotizar" class="pill glass" id="pill"></a></nav>
+<nav><span class="logo" id="logo"></span><a href="#cotizar" class="pill" id="pill"></a></nav>
 <main id="app"></main>
 <footer class="footer" id="footer"></footer>
-<div class="dock" id="dock"><div class="dock-bg glass"></div><a class="dock-logo glass" id="dockLogo" href="#inicio" aria-label="Inicio"></a><div class="tabs" id="tabs"></div><div class="bubble" id="bubble"><span id="bIcon"></span></div></div>
+<div class="dock" id="dock"><div class="dock-bg"></div><div class="hump"></div><div class="dock-line"></div><a class="dock-logo" id="dockLogo" href="#inicio" aria-label="Inicio"></a><div class="tabs" id="tabs"></div></div>
 
 <script src="content/data.js"></script>
 <script>
@@ -203,7 +202,7 @@ const nav=document.querySelector('nav'),pl=document.querySelector('.hero h1');
 const secs=D.menu.map(m=>$(m.id)).filter(Boolean);
 const dock=$('dock'),tabEls=[...document.querySelectorAll('.tab')];let act=null;
 function place(){const t=tabEls.find(x=>x.dataset.id===act);if(!t)return;const d=dock.getBoundingClientRect(),r=t.getBoundingClientRect();dock.style.setProperty('--x',(r.left-d.left+r.width/2)+'px')}
-function setActive(id){if(!id||id===act)return;act=id;tabEls.forEach(t=>t.classList.toggle('on',t.dataset.id===id));$('bIcon').innerHTML=svg(id);const b=$('bubble');b.classList.remove('go');void b.offsetWidth;b.classList.add('go');place()}
+function setActive(id){if(!id||id===act)return;act=id;tabEls.forEach(t=>t.classList.toggle('on',t.dataset.id===id));place()}
 addEventListener('resize',place);addEventListener('load',place);
 function onScroll(){
   const y=scrollY,mx=document.documentElement.scrollHeight-innerHeight;
