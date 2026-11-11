@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://joels09.github.io/Joel-Webs/sitemap.xml
