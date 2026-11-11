@@ -1,6 +1,6 @@
 window.SITE_DATA={
   "marca": {
-    "nombre": "Joel Webs",
+    "nombre": "Joel Webs Studio ",
     "logo": "imagenes/612999.jpg",
     "video": "imagenes/612933.mp4"
   },
@@ -170,12 +170,13 @@ window.SITE_DATA={
     "©2026 todos los derechos reservados"
   ],
   "estilo": {
-    "ledModo": "fijo",
+    "ledModo": "rgb",
     "ledColor": "#ffffff",
     "rgbColores": [
-      "#ff0055",
-      "#00ff88",
-      "#0055ff"
+      "#ff0000",
+      "#00ff00",
+      "#0000ff",
+      "#ffff00"
     ],
     "ledVelocidad": "4"
   }
