@@ -175,12 +175,12 @@ window.SITE_DATA={
   ],
   "estilo": {
     "ledModo": "fijo",
-    "ledColor": "#00ffff",
+    "ledColor": "#ffffff",
+    "rgbColores": [],
+    "ledVelocidad": "4",
     "generalModo": "fijo",
     "generalColor": "#00ffff",
     "botonModo": "fijo",
-    "botonColor": "#00ffff",
-    "rgbColores": [],
-    "ledVelocidad": "4"
+    "botonColor": "#00ffff"
   }
 };
