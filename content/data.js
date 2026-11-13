@@ -81,6 +81,7 @@ window.SITE_DATA={
   "modelos": [
     {
       "titulo": "Invitación Boda",
+      "acento": "#c9d1dc",
       "precio": "S/30",
       "keys": "Básico Blog Invitación",
       "img": "",
@@ -88,6 +89,7 @@ window.SITE_DATA={
     },
     {
       "titulo": "Portfolio Minimalista",
+      "acento": "#f2c14e",
       "precio": "S/30",
       "keys": "Portfolio Básico",
       "img": "",
@@ -95,6 +97,7 @@ window.SITE_DATA={
     },
     {
       "titulo": "Producto Promo",
+      "acento": "#b48cff",
       "precio": "S/75",
       "keys": "Básico S Producto",
       "img": "",
@@ -102,6 +105,7 @@ window.SITE_DATA={
     },
     {
       "titulo": "ApkMods",
+      "acento": "#7cc8ff",
       "precio": "S/75",
       "keys": "Apk Básico S",
       "img": "",
@@ -109,6 +113,7 @@ window.SITE_DATA={
     },
     {
       "titulo": "Barber",
+      "acento": "#ff6b8a",
       "precio": "S/150",
       "keys": "Barber Pro",
       "img": "",
@@ -116,6 +121,7 @@ window.SITE_DATA={
     },
     {
       "titulo": "Restaurant Gourmet",
+      "acento": "#3ddc97",
       "precio": "S/150",
       "keys": "Restaurant Pro",
       "img": "",
@@ -123,6 +129,7 @@ window.SITE_DATA={
     },
     {
       "titulo": "Tienda Pro Max",
+      "acento": "#ff9f43",
       "precio": "S/250",
       "keys": "Tienda Ultra",
       "img": "",
@@ -132,18 +139,21 @@ window.SITE_DATA={
   "portafolio": [
     {
       "nombre": "Tony Barber",
+      "acento": "#c9d1dc",
       "plan": "Plan Pro",
       "img": "",
       "grad": "linear-gradient(135deg,#ff7a00,#000)"
     },
     {
       "nombre": "ApkMods",
+      "acento": "#f2c14e",
       "plan": "Plan Básico S",
       "img": "",
       "grad": "linear-gradient(135deg,#4a00ff,#00ffcc)"
     },
     {
       "nombre": "Restaurant",
+      "acento": "#b48cff",
       "plan": "Plan Pro",
       "img": "",
       "grad": "linear-gradient(135deg,#ff0055,#ffcc00)"
