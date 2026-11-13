@@ -55,10 +55,11 @@ let D=clone(window.SITE_DATA),files={},dir=null,abierto='marca';
 const G="linear-gradient(135deg,#222,#000)";
 const S=[
 {t:'Nombre, logo y video',p:'marca',k:'obj',f:[['nombre','Nombre'],['logo','Logo','file'],['video','Video de fondo','file']]},
+{t:'Colores del sitio (combinación)',p:'estilo',k:'obj',f:[['tema','Combinación de colores','select',[['original','Original (blanco y negro)'],['verde-amarillo','Verde y amarillo'],['verde-blanco','Verde y blanco'],['azul-verde','Azul eléctrico y verde'],['personalizado','Personalizado (usa los 3 colores de abajo)']]],['temaAcento','Color principal (solo Personalizado)','color'],['temaAcento2','Color secundario (solo Personalizado)','color'],['temaFondo','Color de fondo (solo Personalizado)','color']]},
 {t:'Inicio (textos)',p:'hero',k:'obj',f:[['titulo','Título'],['texto','Texto','area'],['placeholder','Texto del buscador']]},
 {t:'Títulos de secciones',p:'secciones',k:'obj',f:[['planes','Planes'],['modelos','Modelos'],['portafolio','Portafolio'],['preguntas','Preguntas']]},
-{t:'Planes',p:'planes',k:'arr',f:[['nombre','Nombre'],['precio','Precio'],['desc','Descripción','area'],['keys','Palabras clave extra (opcional, el nombre ya cuenta)'],['img','Imagen','file']],n:{nombre:'',precio:'',desc:'',keys:'',img:'',grad:G}},
-{t:'Modelos (nombre y palabras clave crean las sugerencias del buscador)',p:'modelos',k:'arr',f:[['titulo','Título'],['precio','Precio'],['keys','Palabras clave separadas por espacio'],['img','Imagen','file']],n:{titulo:'',precio:'',keys:'',img:'',grad:G}},
+{t:'Planes',p:'planes',k:'arr',f:[['nombre','Nombre'],['precio','Precio'],['desc','Descripción','area'],['keys','Palabras clave extra (opcional, el nombre ya cuenta)'],['icono','Ícono del plan (se ve arriba de la tarjeta)','file'],['img','Imagen','file']],n:{nombre:'',precio:'',desc:'',keys:'',icono:'',img:'',grad:G}},
+{t:'Modelos (el nombre y las palabras clave generan las predicciones y tarjetas del buscador)',p:'modelos',k:'arr',f:[['titulo','Título'],['precio','Precio'],['keys','Palabras clave separadas por espacio'],['img','Imagen','file']],n:{titulo:'',precio:'',keys:'',img:'',grad:G}},
 {t:'Portafolio',p:'portafolio',k:'arr',f:[['nombre','Nombre'],['plan','Plan'],['keys','Palabras clave extra (opcional, el nombre ya cuenta)'],['img','Imagen','file']],n:{nombre:'',plan:'',keys:'',img:'',grad:G}},
 {t:'Contorno LED de las tarjetas',p:'estilo',k:'obj',f:[['ledModo','Modo','select',['fijo','rgb']],['ledColor','Color del modo fijo','color'],['ledVelocidad','Velocidad del RGB en segundos (menor = más rápido)']]},
 {t:'Colores del modo RGB (agrega los que quieras)',p:'estilo.rgbColores',k:'strs',c:1},
@@ -72,7 +73,7 @@ function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=
 function btn(t,fn,c){const b=el('button',c||'',t);b.onclick=fn;return b}
 function inp(o,key,label,kind,opts){
   const w=el('div'),i=el(kind==='area'?'textarea':kind==='select'?'select':'input');w.append(el('label','',label));
-  if(kind==='select')(opts||[]).forEach(x=>i.append(new Option(x,x)));
+  if(kind==='select')(opts||[]).forEach(x=>i.append(Array.isArray(x)?new Option(x[1],x[0]):new Option(x,x)));
   if(kind==='color')i.type='color';
   i.value=o[key]==null?(kind==='color'?'#ffffff':''):o[key];
   i.oninput=()=>{o[key]=i.value;dirty()};
@@ -156,7 +157,7 @@ async function publicar(){
 $('bGh').onclick=publicar;
 $('bSave').onclick=guardar;$('bDown').onclick=descargar;
 $('bPrev').onclick=()=>{dirty();window.open('index.html?preview=1','_blank')};
-const ESTILO={ledModo:'fijo',ledColor:'#ffffff',rgbColores:['#ff0055','#00ff88','#0055ff'],ledVelocidad:'4'};
+const ESTILO={tema:'original',temaAcento:'#22e06b',temaAcento2:'#ffd60a',temaFondo:'#050505',ledModo:'fijo',ledColor:'#ffffff',rgbColores:['#ff0055','#00ff88','#0055ff'],ledVelocidad:'4'};
 function iniciar(){
   try{const d=localStorage.getItem('joelwebs_draft');if(d&&d!==JSON.stringify(D)&&confirm('Hay cambios sin guardar de la última vez. ¿Recuperarlos?'))D=JSON.parse(d)}catch(e){}
   D.estilo=Object.assign({},ESTILO,D.estilo||{});
