@@ -14,20 +14,29 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Joel Webs", "alternateName": ["JoelWebs", "Joel Webs Piura"], "url": "https://joels09.github.io/Joel-Webs/", "inLanguage": "es"}, {"@type": "ProfessionalService", "name": "Joel Webs", "url": "https://joels09.github.io/Joel-Webs/", "image": "https://joels09.github.io/Joel-Webs/imagenes/logo.jpg", "description": "Diseño y desarrollo de páginas web en Piura, Perú.", "areaServed": "PE", "address": {"@type": "PostalAddress", "addressLocality": "Piura", "addressCountry": "PE"}}]}</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{background:#050505;color:#fff;font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+html{overflow-x:hidden;max-width:100%}body{max-width:100vw;background:#050505;color:#fff;font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
 .bgv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.nav-solid{background:rgba(0,0,0,.35) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+nav{background:rgba(12,12,16,.42) !important;-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.08)}
+.burger{flex-shrink:0;width:36px;height:36px;border:0;background:transparent;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer;border-radius:12px}
+.burger i{display:block;width:20px;height:2.4px;border-radius:2px;background:#fff}
+#dbg{position:fixed;inset:0;z-index:130;background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:.3s}
+#drawer{position:fixed;z-index:140;top:10px;left:10px;bottom:10px;width:min(300px,82vw);padding:18px 14px;border-radius:30px;background:linear-gradient(160deg,rgba(40,40,46,.72),rgba(14,14,18,.82));border:1px solid rgba(255,255,255,.14);-webkit-backdrop-filter:blur(26px) saturate(1.4);backdrop-filter:blur(26px) saturate(1.4);box-shadow:0 20px 60px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.12);transform:translateX(-115%);transition:transform .4s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;gap:6px;overflow-y:auto}
+body.menu-open #dbg{opacity:1;visibility:visible}body.menu-open #drawer{transform:none}
+.d-head{display:flex;align-items:center;gap:10px;padding:2px 8px 14px;font-weight:800;font-size:16px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:10px}
+.d-head img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+.d-head button{margin-left:auto;background:rgba(255,255,255,.1);border:0;color:#fff;width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer}
+#drawer a{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:99px;color:#fff;text-decoration:none;font-weight:600;font-size:15px;border:1px solid transparent;opacity:.85;transition:.25s}
+#drawer a .nav-ico{width:22px;height:22px}
+#drawer a.active{opacity:1;background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.05));border-color:rgba(255,255,255,.3);box-shadow:0 0 20px rgba(255,255,255,.12)}
 .logo{font-weight:900;font-size:18px;flex-shrink:0;text-shadow:0 2px 20px rgba(0,0,0,.9)}
-nav{position:fixed;top:0;left:0;right:0;height:58px;background:transparent;transition:background .4s;z-index:100;display:flex;align-items:center;padding:0 10px 0 14px;gap:8px}
+nav{position:fixed;top:0;left:0;right:0;height:58px;background:transparent;transition:background .4s;z-index:100;display:flex;align-items:center;padding:0 10px 0 8px;gap:8px}
 .nav-wrap{flex:1;overflow-x:auto;scrollbar-width:none;display:flex;align-items:center;gap:18px;min-width:0}
 .nav-wrap::-webkit-scrollbar{display:none}
 .nav-wrap a.link{display:inline-flex;align-items:center;gap:6px;color:#fff;text-decoration:none;opacity:.85;white-space:nowrap;font-size:11.5px;font-weight:700;text-transform:uppercase;padding-bottom:7px;border-bottom:2px solid transparent;transition:.25s;text-shadow:0 2px 12px #000}
 .nav-ico{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 .nav-wrap a.link.active{opacity:1;border-bottom-color:#fff}
-.dock{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:110;width:min(440px,calc(100% - 28px));padding:8px;border-radius:99px;background:rgba(14,14,16,.55);border:1px solid rgba(255,255,255,.16);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 10px 40px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.12)}
-.btn-glow{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px 22px;border:0;border-radius:99px;color:#0b0b0f;font:600 14px Inter,system-ui,sans-serif;text-decoration:none;white-space:nowrap;cursor:pointer;overflow:hidden;
-background:radial-gradient(60% 70% at 50% 135%,#fff 0,rgba(255,255,255,.9) 30%,transparent 72%),linear-gradient(95deg,#3f8dff 0%,#9cc4ff 28%,#e9eaff 62%,#f6efff 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.55),inset 0 -8px 18px rgba(255,255,255,.35),0 6px 26px rgba(80,150,255,.35);transition:transform .2s,box-shadow .2s}
-.btn-glow:hover{transform:translateY(-1px);box-shadow:inset 0 0 0 1px #fff,inset 0 -8px 18px rgba(255,255,255,.5),0 8px 32px rgba(80,150,255,.55)}
+.btn-glow{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px 22px;border:1.5px solid #fff;border-radius:99px;color:#fff;font:500 14px Inter,system-ui,sans-serif;text-decoration:none;white-space:nowrap;cursor:pointer;background:linear-gradient(180deg,rgba(24,24,30,.82),rgba(14,14,18,.88));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 4px 18px rgba(0,0,0,.45);transition:transform .2s,box-shadow .2s,background .2s}
+.btn-glow:hover{background:rgba(255,255,255,.12);box-shadow:0 0 18px rgba(255,255,255,.28)}
 .btn-glow:active{transform:scale(.98)}
 .btn-glow svg{width:16px;height:16px;flex-shrink:0}
 .btn-sm{width:auto;padding:10px 22px;font-size:13px;margin-bottom:6px}
@@ -48,7 +57,8 @@ background:radial-gradient(60% 70% at 50% 135%,#fff 0,rgba(255,255,255,.9) 30%,t
 .carousel::-webkit-scrollbar{display:none}
 .card,.model-card{flex:0 0 78vw;max-width:300px;background:#0f0f0f;border-radius:16px;display:flex;flex-direction:column}
 #planes{position:relative}
-#planes:before{content:"";position:absolute;z-index:-1;left:50%;top:40px;width:min(760px,130vw);height:520px;transform:translateX(-50%);background:radial-gradient(40% 45% at 35% 60%,rgba(0,110,255,.55),transparent 70%),radial-gradient(35% 40% at 70% 40%,rgba(80,200,255,.35),transparent 70%),radial-gradient(30% 35% at 55% 85%,rgba(120,70,255,.35),transparent 70%);filter:blur(40px);-webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent);mask-image:radial-gradient(closest-side,#000 40%,transparent);pointer-events:none}
+body{overflow-x:clip}
+#planes:before{content:"";position:absolute;z-index:-1;left:50%;top:40px;width:min(760px,100%);height:520px;transform:translateX(-50%);background:radial-gradient(40% 45% at 35% 60%,rgba(0,110,255,.55),transparent 70%),radial-gradient(35% 40% at 70% 40%,rgba(80,200,255,.35),transparent 70%),radial-gradient(30% 35% at 55% 85%,rgba(120,70,255,.35),transparent 70%);filter:blur(40px);-webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent);mask-image:radial-gradient(closest-side,#000 40%,transparent);pointer-events:none}
 #carouselPlanes{gap:16px}
 .plan-card{flex:0 0 78vw;max-width:300px;position:relative;display:flex;flex-direction:column;padding:22px 20px 20px;border-radius:28px;color:#fff;background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 45%,rgba(0,0,0,.35));border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(22px) saturate(1.3);backdrop-filter:blur(22px) saturate(1.3);box-shadow:0 20px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.22);transition:transform .3s,border-color .3s,box-shadow .3s}
 .plan-card:hover{transform:translateY(-4px);border-color:rgba(160,205,255,.7);box-shadow:0 20px 60px rgba(40,120,255,.35),0 0 0 3px rgba(120,180,255,.18),inset 0 1px 0 rgba(255,255,255,.3)}
@@ -104,7 +114,8 @@ background:radial-gradient(60% 70% at 50% 135%,#fff 0,rgba(255,255,255,.9) 30%,t
 <div id="pre"><div><img id="preLogo" class="pre-logo" alt=""><div class="pt" id="preName"></div><div class="pl2"><span class="pb"></span><small id="pn">0%</small></div></div></div>
 <div id="prog"></div>
 <video class="bgv" id="videoFondo" autoplay muted loop playsinline preload="auto"></video>
-<nav><span class="logo" id="logo"></span><div class="nav-wrap" id="navWrap"></div></nav>
+<nav><button class="burger" id="burger" aria-label="Menú"><i></i><i></i><i></i></button><span class="logo" id="logo"></span><div class="nav-wrap" id="navWrap"></div></nav>
+<div id="dbg"></div><aside id="drawer"></aside>
 <main id="app"></main>
 <footer class="footer" id="footer"></footer>
 
@@ -134,6 +145,11 @@ preguntas:'<svg viewBox="0 0 64 64"><path d="M14 12h36a6 6 0 0 1 6 6v22a6 6 0 0 
 const SI=k=>(NI[k]||'').replace('<svg','<svg class="sec-ico"');
 $('navWrap').innerHTML=D.menu.map((m,i)=>`<a href="#${E(m.id)}" class="link${i?'':' active'}">${NI[m.id]?NI[m.id].replace('<svg','<svg class="nav-ico"'):''}${E(m.texto)}</a>`).join('');
 const PLANE='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.4 2.6a1 1 0 0 0-1-.2L3 9.1a1 1 0 0 0 .1 1.9l6.6 2.3 2.3 6.6a1 1 0 0 0 1.9.1l6.7-17.4a1 1 0 0 0-.2-1z"/></svg>';
+$('drawer').innerHTML='<div class="d-head"><img id="dLogo" alt=""><span>'+E(M.nombre)+'</span><button id="dClose" aria-label="Cerrar">✕</button></div>'+D.menu.map((m,i)=>`<a href="#${E(m.id)}"${i?'':' class="active"'}>${NI[m.id]?NI[m.id].replace('<svg','<svg class="nav-ico"'):''}${E(m.texto.charAt(0)+m.texto.slice(1).toLowerCase())}</a>`).join('');
+$('dLogo').src=M.logo;$('dLogo').onerror=function(){this.style.display='none'};
+const toggleMenu=o=>document.body.classList.toggle('menu-open',o);
+$('burger').onclick=()=>toggleMenu();$('dClose').onclick=()=>toggleMenu(false);$('dbg').onclick=()=>toggleMenu(false);
+$('drawer').addEventListener('click',e=>{if(e.target.closest('a'))toggleMenu(false)});
 $('footer').innerHTML=D.footer.map(l=>`<div>${E(l)}</div>`).join('');
 
 $('app').innerHTML=`
@@ -204,6 +220,7 @@ function onScroll(){
   pg.style.transform='scaleX('+(mx>0?y/mx:0)+')';
   nav.classList.toggle('nav-solid',pl.getBoundingClientRect().top<=58);
   let cur=secs[0]&&secs[0].id;secs.forEach(s=>{if(y+200>=s.offsetTop)cur=s.id});
+  document.querySelectorAll('#drawer a').forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
   links.forEach(l=>{const on=l.getAttribute('href')==='#'+cur;if(on&&!l.classList.contains('active'))l.scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'});l.classList.toggle('active',on)});
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();
