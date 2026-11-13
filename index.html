@@ -105,7 +105,7 @@ body{overflow-x:clip}
 .bg-card .label small{display:block;font-size:11px;opacity:.7}
 .preguntas-grid{display:flex;flex-direction:column;gap:12px;padding-right:16px;padding-bottom:20px}
 .pregunta-card{background:linear-gradient(160deg,var(--cardbg),rgba(255,255,255,.03) 45%,rgba(0,0,0,.35));border:1px solid var(--cardb);box-shadow:0 10px 24px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.2);border-radius:24px;padding:0 22px;overflow:hidden}
-.pregunta-card h3{font-size:16px;font-weight:700;padding:20px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.pregunta-card h3{font-size:16px;font-weight:700;padding:0;min-height:84px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
 .pregunta-card h3::after{content:"";flex:0 0 auto;width:9px;height:9px;margin:-4px 4px 0 14px;border:solid rgb(var(--acc2));border-width:0 1.6px 1.6px 0;border-radius:1px;transform:rotate(45deg);transition:transform .3s}
 .pregunta-card.open h3::after{transform:rotate(-135deg);margin-top:4px}
 .pregunta-card p{font-size:14px;line-height:1.5;max-height:0;overflow:hidden;opacity:0;transition:.4s}
@@ -162,6 +162,11 @@ body{overflow-x:clip}
 .model-card .btn-glow:hover{background:rgba(var(--pc),.26);box-shadow:0 0 22px rgba(var(--pc),.45)}
 .gcard .card-info span,.bg-card .label small{color:rgb(var(--pc))}
 .gcard .card-info span{font-family:inherit}
+.vermas{display:none;align-items:center;justify-content:center;gap:10px;margin:26px auto 8px;padding:14px 34px;border-radius:99px;border:1.5px solid rgba(var(--acc),.7);background:linear-gradient(180deg,rgba(var(--acc),.16),rgba(var(--acc),.05));color:#fff;font-size:16px;font-weight:600;font-family:inherit;letter-spacing:.03em;cursor:pointer;transition:.25s}
+.vermas:hover{background:rgba(var(--acc),.26);box-shadow:0 0 22px rgba(var(--acc),.4);transform:translateY(-2px)}
+.vermas.none{display:none !important}
+.vermas i{width:9px;height:9px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg) translateY(-2px);transition:transform .3s}
+.vermas.open i{transform:rotate(-135deg) translateY(-1px)}
 .car-arrows{display:none;gap:10px;align-items:center}
 .car-arrows button{width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(var(--acc),.6);background:rgba(20,20,26,.8);color:#fff;font-size:22px;line-height:1;cursor:pointer;transition:.25s}
 .car-arrows button:hover{background:rgba(var(--acc),.25);transform:scale(1.08)}
@@ -209,11 +214,13 @@ body{overflow-x:clip}
  .sec-head h2{font-size:clamp(28px,2.4vw,40px);gap:14px}
  .sec-ico{width:36px;height:36px}
  #contador{font-size:17px}
- .carousel{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(270px,20vw,330px),1fr));gap:26px;overflow:visible;padding:8px 0 14px;margin:0;scroll-padding:0;scroll-snap-type:none}
+ .carousel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;overflow:visible;padding:8px 0 14px;margin:0;scroll-padding:0;scroll-snap-type:none}
  .carousel>.nores{grid-column:1/-1}
  #carouselPlanes.carousel{display:flex;gap:26px;overflow-x:auto;padding:44px 56px 84px;margin:-36px -56px -70px;scroll-padding-left:56px;scroll-snap-type:x proximity}
  #carouselPlanes>.plan-card{flex:0 0 clamp(280px,21vw,330px)}
  .car-arrows{display:flex}
+ .carousel.collapsed>:nth-child(n+4){display:none}
+ .vermas{display:flex}
  .plan-card,.gcard.gcard{flex:none;width:auto;max-width:none}
  .plan-card{padding:34px 28px 28px}
  .plan-img{flex-basis:118px;width:118px}
@@ -227,7 +234,7 @@ body{overflow-x:clip}
  .gcard .label{font-size:18px;padding:16px 8px 4px !important}
  .model-card .btn-glow{font-size:15px;padding:13px 32px;margin:8px 0 4px}
  .preguntas-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:0 0 28px;align-items:start}
- .pregunta-card{padding:0 30px}.pregunta-card h3{font-size:19px;padding:26px 0}.pregunta-card p{font-size:16.5px}
+ .pregunta-card{padding:0 30px}.pregunta-card h3{font-size:19px;padding:0;min-height:108px}.pregunta-card p{font-size:16.5px}
  .cta{padding:96px 48px}.cta h2{font-size:clamp(34px,3.4vw,56px)}.cta p{font-size:19px}
  #drawer{width:380px}
 }
@@ -326,6 +333,10 @@ const cMod=(m,i)=>`<div class="model-card gcard"${pcs(m)}>${pic(m)}<div class="c
 const cPor=p=>`<div class="bg-card gcard"${pcs(p)}>${pic(p)}<div class="label">${E(p.nombre)} <small>${E(p.plan)}</small></div></div>`;
 const revObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revObs.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
 function reveal(){document.querySelectorAll('.sec-head,.plan-card,.model-card,.bg-card,.pregunta-card,.cta>*').forEach((el,i)=>{if(el.dataset.rv)return;el.dataset.rv=1;el.classList.add('rv');const sib=[...el.parentNode.children].indexOf(el);el.style.setProperty('--d',Math.min(sib,6)*.09+'s');revObs.observe(el)})}
+const VM={};
+['carouselModelos','carouselPorta'].forEach(id=>{const c=$(id);if(!c)return;c.classList.add('collapsed');const b=document.createElement('button');b.type='button';b.className='vermas none';c.insertAdjacentElement('afterend',b);VM[id]=b;
+  b.onclick=()=>{const cerrando=!c.classList.toggle('collapsed');vmUpd(id,+b.dataset.t);if(!cerrando)c.closest('.section').scrollIntoView({behavior:'smooth'})}});
+function vmUpd(id,n){const b=VM[id];if(!b)return;const c=$(id),extra=Math.max(0,n-3);b.dataset.n=extra;b.dataset.t=n;b.classList.toggle('none',extra===0);const abierto=!c.classList.contains('collapsed');b.classList.toggle('open',abierto);b.innerHTML=(abierto?'Ver menos ':'Ver más ('+extra+') ')+'<i></i>'}
 function pintar(q,exacto){
   const nq=norm(q).trim(),todo=!nq||nq==='todos',toks=nq.split(/\s+/);
   const ok=o=>{if(todo)return true;if(exacto)return words([o.nombre,o.titulo,o.plan,o.keys].join(' ')).includes(nq);const h=hay(o),hw=words(h);return toks.every(t=>tokOk(h,hw,t))};
@@ -333,7 +344,7 @@ function pintar(q,exacto){
   const a=fill('carouselPlanes',D.planes,cPlan,'No hay planes con esa palabra clave.');
   const b=fill('carouselModelos',D.modelos,cMod,'No hay modelos con esa palabra clave.');
   const c=fill('carouselPorta',D.portafolio,cPor,'No hay trabajos con esa palabra clave.');
-  contador.textContent=b+' modelos';fixImgs();reveal();return{planes:a,modelos:b,portafolio:c};
+  contador.textContent=b+' modelos';vmUpd('carouselModelos',b);vmUpd('carouselPorta',c);fixImgs();reveal();return{planes:a,modelos:b,portafolio:c};
 }
 /* Cada plan, modelo y trabajo del portafolio aporta palabras clave automáticamente */
 const STOP=new Set('de del la el los las y e o con para en un una al por que plan planes modelo modelos web sitio pagina'.split(' '));
@@ -400,7 +411,7 @@ buscador.addEventListener('focus',sugerir);
     const [a,b]=ar.children;a.onclick=()=>cp.scrollBy({left:-cardW(cp),behavior:'smooth'});b.onclick=()=>cp.scrollBy({left:cardW(cp),behavior:'smooth'});
     const chk=()=>ar.classList.toggle('off',cp.scrollWidth<=cp.clientWidth+4);chk();addEventListener('resize',chk);addEventListener('load',chk);new MutationObserver(chk).observe(cp,{childList:true})}
   if(reduce||!touch)return;
-  ['carouselPlanes','carouselModelos','carouselPorta'].forEach(id=>{
+  ['carouselPlanes'].forEach(id=>{
     const el=$(id);if(!el)return;let pausa=false,vis=false,idle;
     const parar=()=>{pausa=true;clearTimeout(idle)},seguir=()=>{clearTimeout(idle);idle=setTimeout(()=>{pausa=false},6000)};
     el.addEventListener('touchstart',parar,{passive:true});el.addEventListener('touchend',seguir,{passive:true});el.addEventListener('touchcancel',seguir,{passive:true});
@@ -435,11 +446,12 @@ document.addEventListener('click',e=>{
 const pg=$('prog');
 const secs=D.menu.map(m=>$(m.id)).filter(Boolean),links=[...document.querySelectorAll('#navWrap a.link')],dl=[...document.querySelectorAll('#drawer a[href^="#"]')];
 let tops=[],cur0=null,tick=false;
-let heroH=innerHeight;const veil=$('veil');
+let heroH=innerHeight,parado=false;const veil=$('veil'),vid=$('videoFondo');
 const medir=()=>{heroH=$('inicio').offsetHeight||innerHeight;tops=secs.map(s=>[s.id,s.offsetTop])};
 function onScroll(){
   const y=scrollY,mx=document.documentElement.scrollHeight-innerHeight;
   pg.style.transform='scaleX('+(mx>0?y/mx:0)+')';
+  const lejos=y>heroH*.85;if(lejos!==parado){parado=lejos;if(lejos)vid.pause();else vid.play().catch(()=>{})} /* abajo: video en pausa y desenfocado (ahorra batería); arriba: se reanuda */
   veil.style.opacity=Math.max(0,Math.min(1,(y-heroH*.3)/(heroH*.5))).toFixed(3); /* el video se desenfoca al pasar del inicio */
   let cur=tops[0]&&tops[0][0];for(const t of tops)if(y+200>=t[1])cur=t[0];
   if(cur===cur0)return;cur0=cur;
@@ -458,12 +470,12 @@ const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/600),e=1-Mat
 /* Video de fondo (continúa en el mismo segundo al volver) */
 const v=$('videoFondo');v.muted=true;v.loop=true;v.playsInline=true;v.src=M.video;
 const guardar=()=>{try{if(v.currentTime>0.5)sessionStorage.setItem('joel_video_segundo',v.currentTime)}catch(e){}};
-function iniciar(){const g=parseFloat(sessionStorage.getItem('joel_video_segundo')||0);try{if(g>0.5&&v.duration&&g<v.duration-0.5)v.currentTime=g}catch(e){}const p=v.play();if(p)p.catch(()=>{})}
+function iniciar(){const g=parseFloat(sessionStorage.getItem('joel_video_segundo')||0);try{if(g>0.5&&v.duration&&g<v.duration-0.5)v.currentTime=g}catch(e){}if(parado)return;const p=v.play();if(p)p.catch(()=>{})}
 v.addEventListener('loadedmetadata',iniciar);
-v.addEventListener('timeupdate',()=>{if(v.duration&&v.currentTime>v.duration-0.25){v.currentTime=0;v.play().catch(()=>{})}});
-v.addEventListener('ended',()=>{v.currentTime=0;v.play().catch(()=>{})});
-v.addEventListener('pause',()=>{if(!document.hidden)v.play().catch(()=>{})});
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)v.play().catch(()=>{})});
+v.addEventListener('timeupdate',()=>{if(!parado&&v.duration&&v.currentTime>v.duration-0.25){v.currentTime=0;v.play().catch(()=>{})}});
+v.addEventListener('ended',()=>{if(parado)return;v.currentTime=0;v.play().catch(()=>{})});
+v.addEventListener('pause',()=>{if(!document.hidden&&!parado)v.play().catch(()=>{})});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!parado)v.play().catch(()=>{})});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)iniciar()});
 ['pageshow','focus'].forEach(e=>addEventListener(e,iniciar));['pagehide','blur'].forEach(e=>addEventListener(e,guardar));
 </script>
