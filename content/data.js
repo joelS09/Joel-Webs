@@ -144,19 +144,19 @@ window.SITE_DATA={
   "preguntas": [
     {
       "q": "¿Qué tiempo demora mi web?",
-      "a": "En solo unos días, no semanas."
+      "a": "Mucho menos de lo que imaginas: en solo unos días, no semanas. Mientras otros siguen esperando, tu negocio ya puede estar recibiendo clientes por internet."
     },
     {
       "q": "¿Se verá bien en celulares?",
-      "a": "Sí, 100% responsive."
+      "a": "Sí, 100%. Tu web se verá impecable en celular, tablet y computadora, y hoy la mayoría de tus clientes te busca desde el celular."
     },
     {
       "q": "¿Cómo realizo el pago?",
-      "a": "Yape o transferencia bancaria."
+      "a": "Muy fácil y seguro: por Yape o transferencia bancaria. Sin trámites complicados, pagas y empezamos a trabajar en tu web."
     },
     {
-      "q": "¿Si no me convence la página puedo cambiarla después? ",
-      "a": "Sí, nosotros te accesoramos para que tu web quede como la imaginaste. "
+      "q": "¿Si no me convence la página puedo cambiarla después?",
+      "a": "¡Claro que sí! Te asesoramos paso a paso para que tu web quede tal como la imaginaste. Tu confianza es lo primero."
     }
   ],
   "contacto": {
