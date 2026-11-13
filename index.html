@@ -30,11 +30,11 @@ background:radial-gradient(60% 70% at 50% 135%,#fff 0,rgba(255,255,255,.9) 30%,t
 .btn-glow:hover{transform:translateY(-1px);box-shadow:inset 0 0 0 1px #fff,inset 0 -8px 18px rgba(255,255,255,.5),0 8px 32px rgba(80,150,255,.55)}
 .btn-glow:active{transform:scale(.98)}
 .btn-glow svg{width:16px;height:16px;flex-shrink:0}
-body{padding-bottom:84px}
+.btn-sm{width:auto;padding:10px 22px;font-size:13px;margin-bottom:6px}
 .hero{position:relative;z-index:0;overflow:hidden;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 16px 40px}
 .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.5));z-index:-1}
 .hero h1{font-size:clamp(32px,8vw,72px);font-weight:800;letter-spacing:-2px;line-height:.95;max-width:700px;text-shadow:0 2px 24px rgba(0,0,0,.5)}
-.hero p{opacity:.92;max-width:520px;margin:14px 0 22px;font-size:14px;text-shadow:0 1px 12px #000}
+.hero p{opacity:.92;max-width:520px;margin:14px 0 16px;font-size:14px;text-shadow:0 1px 12px #000}
 .search{background:rgba(16,16,16,.85);border:1px solid #333;border-radius:99px;padding:12px 16px;display:flex;align-items:center;gap:12px;width:100%;max-width:480px;margin-top:18px}
 .search input{background:transparent;border:0;color:#fff;flex:1;outline:none;font-size:14px}
 .clear-btn{width:22px;height:22px;border-radius:50%;background:#fff;color:#000;border:0;display:none;align-items:center;justify-content:center;font-size:12px;font-weight:900;cursor:pointer}
@@ -43,7 +43,7 @@ body{padding-bottom:84px}
 .tag{background:rgba(17,17,17,.85);border:1px solid #2a2a2a;border-radius:99px;padding:6px 12px;font-size:11px;opacity:.85;cursor:pointer}
 .section{padding:32px 0 10px 16px;max-width:1280px;margin:0 auto;scroll-margin-top:70px}
 .sec-head{margin-bottom:12px;padding-right:16px;display:flex;justify-content:space-between}
-.sec-head h2{font-size:19px;font-weight:700}.sec-head h2:before{content:"✦ "}
+.sec-head h2{font-size:19px;font-weight:700}.sec-head h2{display:flex;align-items:center;gap:10px}.sec-ico{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 .carousel{display:flex;gap:14px;overflow-x:auto;padding:14px 16px 26px 14px;margin-left:-14px;scrollbar-width:none}
 .carousel::-webkit-scrollbar{display:none}
 .card,.model-card{flex:0 0 78vw;max-width:300px;background:#0f0f0f;border-radius:16px;display:flex;flex-direction:column}
@@ -105,7 +105,6 @@ body{padding-bottom:84px}
 <div id="prog"></div>
 <video class="bgv" id="videoFondo" autoplay muted loop playsinline preload="auto"></video>
 <nav><span class="logo" id="logo"></span><div class="nav-wrap" id="navWrap"></div></nav>
-<div class="dock"><a href="#cotizar" class="btn-glow" id="pill"></a></div>
 <main id="app"></main>
 <footer class="footer" id="footer"></footer>
 
@@ -132,21 +131,23 @@ planes:'<svg viewBox="0 0 64 64"><rect x="8" y="14" width="48" height="36" rx="7
 modelos:'<svg viewBox="0 0 64 64"><rect x="11" y="11" width="18" height="18" rx="4"/><rect x="35" y="11" width="18" height="18" rx="4"/><rect x="11" y="35" width="18" height="18" rx="4"/><rect x="35" y="35" width="18" height="18" rx="4"/></svg>',
 portafolio:'<svg viewBox="0 0 64 64"><rect x="9" y="22" width="46" height="32" rx="6"/><path d="M25 22v-5c0-2 1.400-3.500 3.500-3.500h7c2 0 3.500 1.500 3.500 3.500v5"/><path d="M9 32c8 5 16 7.500 23 7.500S47 37 55 32"/><rect x="28" y="35" width="8" height="8" rx="2.500"/></svg>',
 preguntas:'<svg viewBox="0 0 64 64"><path d="M14 12h36a6 6 0 0 1 6 6v22a6 6 0 0 1-6 6H30l-12 10v-10h-4a6 6 0 0 1-6-6V18a6 6 0 0 1 6-6z"/><path d="M26 25c0-3.500 3-5.500 6-5.500s6 2 6 5c0 4-6 4.500-6 8"/><path d="M32 39.500v.5"/></svg>'};
+const SI=k=>(NI[k]||'').replace('<svg','<svg class="sec-ico"');
 $('navWrap').innerHTML=D.menu.map((m,i)=>`<a href="#${E(m.id)}" class="link${i?'':' active'}">${NI[m.id]?NI[m.id].replace('<svg','<svg class="nav-ico"'):''}${E(m.texto)}</a>`).join('');
 const PLANE='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.4 2.6a1 1 0 0 0-1-.2L3 9.1a1 1 0 0 0 .1 1.9l6.6 2.3 2.3 6.6a1 1 0 0 0 1.9.1l6.7-17.4a1 1 0 0 0-.2-1z"/></svg>';
-$('pill').innerHTML=E(D.boton.texto)+PLANE;
 $('footer').innerHTML=D.footer.map(l=>`<div>${E(l)}</div>`).join('');
 
 $('app').innerHTML=`
 <div class="hero" id="inicio"><h1>${E(D.hero.titulo)}</h1><p>${E(D.hero.texto)}</p>
+<a href="#cotizar" class="btn-glow btn-sm" id="pill"></a>
 <div class="search" id="searchBox"><input id="buscador" placeholder="${E(D.hero.placeholder)}" autocomplete="off"><button class="clear-btn" id="clearBtn">✕</button></div>
 <div class="tags" id="tagsContainer"></div></div>
-<div class="section" id="planes"><div class="sec-head"><h2>${E(S.planes)}</h2></div><div class="carousel" id="carouselPlanes"></div></div>
-<div class="section" id="modelos"><div class="sec-head"><h2>${E(S.modelos)}</h2><span id="contador"></span></div><div class="carousel" id="carouselModelos"></div></div>
-<div class="section" id="portafolio"><div class="sec-head"><h2>${E(S.portafolio)}</h2></div><div class="carousel" id="carouselPorta"></div></div>
-<div class="section" id="preguntas"><div class="sec-head"><h2>${E(S.preguntas)}</h2></div><div class="preguntas-grid">${D.preguntas.map(q=>`<div class="pregunta-card"><h3>${E(q.q)}</h3><p>${E(q.a)}</p></div>`).join('')}</div></div>
+<div class="section" id="planes"><div class="sec-head"><h2>${SI('planes')}${E(S.planes)}</h2></div><div class="carousel" id="carouselPlanes"></div></div>
+<div class="section" id="modelos"><div class="sec-head"><h2>${SI('modelos')}${E(S.modelos)}</h2><span id="contador"></span></div><div class="carousel" id="carouselModelos"></div></div>
+<div class="section" id="portafolio"><div class="sec-head"><h2>${SI('portafolio')}${E(S.portafolio)}</h2></div><div class="carousel" id="carouselPorta"></div></div>
+<div class="section" id="preguntas"><div class="sec-head"><h2>${SI('preguntas')}${E(S.preguntas)}</h2></div><div class="preguntas-grid">${D.preguntas.map(q=>`<div class="pregunta-card"><h3>${E(q.q)}</h3><p>${E(q.a)}</p></div>`).join('')}</div></div>
 <div class="cta" id="cotizar"><h2 id="tituloCotizar">${E(C.titulo)}</h2><a id="btnCotizar" href="${wa(C.msgGeneral)}">${E(C.boton)}</a></div>`;
 
+$('pill').innerHTML=E(D.boton.texto)+PLANE;
 $('inicio').prepend($('videoFondo'));fixImgs();
 /* Buscador: filtra planes, modelos y portafolio; sugerencias automáticas */
 const buscador=$('buscador'),contador=$('contador'),searchBox=$('searchBox'),clearBtn=$('clearBtn'),tagsContainer=$('tagsContainer');
