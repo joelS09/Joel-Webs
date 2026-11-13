@@ -44,7 +44,7 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:transparent;trans
 .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.5));z-index:-1}
 .hero h1{font-size:clamp(32px,8vw,72px);font-weight:800;letter-spacing:-2px;line-height:.95;max-width:700px;text-shadow:0 2px 24px rgba(0,0,0,.5)}
 .hero p{opacity:.92;max-width:520px;margin:14px 0 16px;font-size:14px;text-shadow:0 1px 12px #000}
-.search{background:rgba(16,16,16,.85);border:1px solid #333;border-radius:99px;padding:12px 16px;display:flex;align-items:center;gap:12px;width:100%;max-width:480px;margin-top:18px}
+.search{background:linear-gradient(180deg,rgba(24,24,30,.82),rgba(14,14,18,.88));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1.5px solid #fff;box-shadow:0 4px 18px rgba(0,0,0,.45);border-radius:99px;padding:12px 18px;display:flex;align-items:center;gap:12px;width:100%;max-width:480px;margin-top:18px}
 .search input{background:transparent;border:0;color:#fff;flex:1;outline:none;font-size:14px}
 .clear-btn{width:22px;height:22px;border-radius:50%;background:#fff;color:#000;border:0;display:none;align-items:center;justify-content:center;font-size:12px;font-weight:900;cursor:pointer}
 .search.has-text .clear-btn{display:flex}
@@ -60,8 +60,8 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:transparent;trans
 body{overflow-x:clip}
 #planes:before{content:"";position:absolute;z-index:-1;left:50%;top:40px;width:min(760px,100%);height:520px;transform:translateX(-50%);background:radial-gradient(40% 45% at 35% 60%,rgba(0,110,255,.55),transparent 70%),radial-gradient(35% 40% at 70% 40%,rgba(80,200,255,.35),transparent 70%),radial-gradient(30% 35% at 55% 85%,rgba(120,70,255,.35),transparent 70%);filter:blur(40px);-webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent);mask-image:radial-gradient(closest-side,#000 40%,transparent);pointer-events:none}
 #carouselPlanes{gap:16px}
-.plan-card{flex:0 0 78vw;max-width:300px;position:relative;display:flex;flex-direction:column;padding:22px 20px 20px;border-radius:28px;color:#fff;background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 45%,rgba(0,0,0,.35));border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(22px) saturate(1.3);backdrop-filter:blur(22px) saturate(1.3);box-shadow:0 20px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.22);transition:transform .3s,border-color .3s,box-shadow .3s}
-.plan-card:hover{transform:translateY(-4px);border-color:rgba(160,205,255,.7);box-shadow:0 20px 60px rgba(40,120,255,.35),0 0 0 3px rgba(120,180,255,.18),inset 0 1px 0 rgba(255,255,255,.3)}
+.plan-card,.gcard.gcard{flex:0 0 78vw;max-width:300px;position:relative;display:flex;flex-direction:column;padding:22px 20px 20px;border-radius:28px;color:#fff;background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 45%,rgba(0,0,0,.35));border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(22px) saturate(1.3);backdrop-filter:blur(22px) saturate(1.3);box-shadow:0 20px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.22);transition:transform .3s,border-color .3s,box-shadow .3s}
+.plan-card:hover,.gcard.gcard:hover{transform:translateY(-4px);border-color:rgba(160,205,255,.7);box-shadow:0 20px 60px rgba(40,120,255,.35),0 0 0 3px rgba(120,180,255,.18),inset 0 1px 0 rgba(255,255,255,.3)}
 .plan-ico{width:54px;height:54px;margin-bottom:14px;color:#fff}
 .plan-ico svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .plan-name{font-size:19px;font-weight:600;opacity:.95}
@@ -69,6 +69,11 @@ body{overflow-x:clip}
 .plan-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin:6px 0 20px;flex:1}
 .plan-list li{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.45;opacity:.85}
 .plan-list li:before{content:"";flex:0 0 20px;height:20px;border-radius:50%;background:rgba(255,255,255,.14) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.3l3 3 6-6.3' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat}
+.model-card.gcard,.bg-card.gcard{padding:12px 12px 14px}
+.gcard .pic{border-radius:20px;flex:0 0 auto;height:180px;object-fit:cover}.gcard .pic.empty{height:180px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.08)}
+.gcard .card-info{padding:14px 6px 10px;font-size:14px}.gcard .card-info span{font-size:16px}
+.gcard .label{padding:14px 6px 2px !important}
+.model-card .btn-glow{width:auto;align-self:center;margin:6px 0 2px;padding:11px 26px;font-size:13px}
 .plan-card .btn-glow{width:auto;align-self:center;padding:11px 26px;font-size:13px}
 .nores{opacity:.6;padding:20px 0;font-size:14px}
 .pic{display:block;width:100%;height:auto;flex:1 0 auto;object-fit:cover;border-radius:16px 16px 0 0}
@@ -82,17 +87,16 @@ body{overflow-x:clip}
 .card-info{padding:12px 14px 6px;display:flex;justify-content:space-between;font-size:12px}
 .card-info span{font-weight:700}
 .card-desc{padding:0 14px 12px;opacity:.6;font-size:11.5px;line-height:1.5;min-height:54px;white-space:pre-line}
-.card button,.model-card button{margin:auto 12px 12px;background:#fff;color:#000;border:0;padding:9px;border-radius:99px;font-weight:700;font-size:12px;cursor:pointer}
 .bg-card{flex:0 0 78vw;max-width:320px;border-radius:16px;background:#0f0f0f;display:flex;flex-direction:column}
 .bg-card .pic{border-radius:16px 16px 0 0}
 .bg-card .pic.empty{height:200px}
 .bg-card .label{padding:12px 14px;font-size:16px;font-weight:700}
 .bg-card .label small{display:block;font-size:11px;opacity:.7}
 .preguntas-grid{display:flex;flex-direction:column;gap:12px;padding-right:16px;padding-bottom:20px}
-.pregunta-card{background:#111;border:1px solid #1e1e1e;border-radius:18px;padding:0 20px;overflow:hidden}
+.pregunta-card{background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 45%,rgba(0,0,0,.35));border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);box-shadow:0 14px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.2);border-radius:24px;padding:0 22px;overflow:hidden}
 .pregunta-card h3{font-size:16px;font-weight:700;padding:20px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
-.pregunta-card h3::after{content:"▼";font-size:18px;transform:scaleX(1.4)}
-.pregunta-card.open h3::after{transform:scaleX(1.4) rotate(180deg)}
+.pregunta-card h3::after{content:"";flex:0 0 auto;width:9px;height:9px;margin:-4px 4px 0 14px;border:solid #fff;border-width:0 1.6px 1.6px 0;border-radius:1px;transform:rotate(45deg);transition:transform .3s}
+.pregunta-card.open h3::after{transform:rotate(-135deg);margin-top:4px}
 .pregunta-card p{font-size:14px;line-height:1.5;max-height:0;overflow:hidden;opacity:0;transition:.4s}
 .pregunta-card.open p{max-height:300px;opacity:.7;margin-bottom:20px}
 .cta{border-top:1px solid rgba(255,255,255,.08);padding:44px 20px;text-align:center}
@@ -171,8 +175,8 @@ const mezclar=a=>[...a].sort(()=>0.5-Math.random());
 const norm=s=>String(s==null?'':s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const words=s=>norm(s).split(/[^a-z0-9]+/).filter(Boolean);
 const cPlan=(p,i)=>`<div class="plan-card"><div class="plan-name">${E(p.nombre)}</div><div class="plan-price">${E(p.precio)}</div><ul class="plan-list">${String(p.desc||'').split('\n').filter(t=>t.trim()).map(t=>`<li>${E(t)}</li>`).join('')}</ul><button class="btn-glow" data-plan="${i}">Seleccionar plan${PLANE}</button></div>`;
-const cMod=(m,i)=>`<div class="model-card led">${pic(m)}<div class="card-info"><b>${E(m.titulo)}</b><span>${E(m.precio)}</span></div><button data-mod="${i}">Seleccionar modelo</button></div>`;
-const cPor=p=>`<div class="bg-card led">${pic(p)}<div class="label">${E(p.nombre)} <small>${E(p.plan)}</small></div></div>`;
+const cMod=(m,i)=>`<div class="model-card gcard">${pic(m)}<div class="card-info"><b>${E(m.titulo)}</b><span>${E(m.precio)}</span></div><button class="btn-glow" data-mod="${i}">Seleccionar modelo${PLANE}</button></div>`;
+const cPor=p=>`<div class="bg-card gcard">${pic(p)}<div class="label">${E(p.nombre)} <small>${E(p.plan)}</small></div></div>`;
 function pintar(q,exacto){
   const nq=norm(q).trim(),todo=!nq||nq==='todos';
   const ok=o=>todo||(exacto?words([o.nombre,o.titulo,o.plan,o.keys].join(' ')).includes(nq):norm([o.nombre,o.titulo,o.plan,o.keys,o.precio].join(' ')).includes(nq));
@@ -193,9 +197,9 @@ function pool(){
 }
 function generarTags(){
   tagsContainer.innerHTML='';
-  ['Todos',...mezclar(pool()).slice(0,4)].forEach(p=>{
+  mezclar(pool()).slice(0,5).forEach(p=>{
     const s=document.createElement('span');s.className='tag';s.textContent='✦ '+p;
-    s.onclick=()=>{const w=p==='Todos'?'':p;buscador.value=w;searchBox.classList.toggle('has-text',!!w);pintar(w,true);if(w)$('modelos').scrollIntoView({behavior:'smooth'})};
+    s.onclick=()=>{const w=p;buscador.value=w;searchBox.classList.toggle('has-text',!!w);pintar(w,true);if(w)$('modelos').scrollIntoView({behavior:'smooth'})};
     tagsContainer.appendChild(s);
   });
 }
