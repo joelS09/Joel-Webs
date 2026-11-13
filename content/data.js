@@ -44,6 +44,7 @@ window.SITE_DATA={
     {
       "nombre": "Plan Básico",
       "icono": "imagenes/plan-plata.webp",
+      "acento": "#c9d1dc",
       "precio": "S/30",
       "desc": "Para blogs, invitaciones digitales o CV.\nUna página simple y limpia.",
       "img": "imagenes/590800.jpg",
@@ -52,6 +53,7 @@ window.SITE_DATA={
     {
       "nombre": "Plan Básico S",
       "icono": "imagenes/plan-oro.webp",
+      "acento": "#f2c14e",
       "precio": "S/75",
       "desc": "Para promocionar productos.\nCon microanimaciones, mejores colores y diseño más vivo.",
       "img": "imagenes/611928.jpg",
@@ -60,6 +62,7 @@ window.SITE_DATA={
     {
       "nombre": "Plan Pro",
       "icono": "imagenes/plan-platino.webp",
+      "acento": "#b48cff",
       "precio": "S/150",
       "desc": "Diseños con animaciones fluidas e interactivas.\nPara tiendas, negocios, APKs, restaurantes y tiendas online.",
       "img": "imagenes/590779.jpg",
@@ -68,6 +71,7 @@ window.SITE_DATA={
     {
       "nombre": "Plan Ultra",
       "icono": "imagenes/plan-diamante.webp",
+      "acento": "#7cc8ff",
       "precio": "S/250",
       "desc": "Todo lo del Pro + animaciones VIP profesionales, acabados premium, efectos más fluidos con una apariencia que sorprende.",
       "img": "imagenes/590849.jpg",
