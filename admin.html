@@ -4,6 +4,9 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Admin · Joel Webs</title>
+<link rel="icon" href="imagenes/612999.jpg" sizes="192x192"><link rel="apple-touch-icon" href="imagenes/612999.jpg">
+<link rel="manifest" href="manifest-admin.webmanifest"><meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Admin Webs">
 <style>
 *{box-sizing:border-box;margin:0}
 body{background:#050505;color:#fff;font:14px Inter,system-ui,sans-serif;padding-bottom:80px}
@@ -33,10 +36,17 @@ input[type=color]{height:40px;padding:3px}
 </head>
 <body>
 <div id="login"><div><h2>Admin · Joel Webs</h2><input id="pw" type="password" placeholder="Clave" autocomplete="current-password"><button id="go">Entrar</button></div></div>
-<header><b>Admin</b><button class="g" id="bPrev">Vista previa</button><button class="g" id="bDown">Descargar</button><button class="g" id="bSave">Guardar en carpeta</button><button id="bGh">Publicar en GitHub</button></header>
+<header><img src="imagenes/612999.jpg" alt="" style="width:26px;height:26px;border-radius:7px;object-fit:cover" onerror="this.style.display='none'"><b>Admin</b><button class="g" id="bInst" style="display:none">Instalar app</button><button class="g" id="bPrev">Vista previa</button><button class="g" id="bDown">Descargar</button><button class="g" id="bSave">Guardar en carpeta</button><button id="bGh">Publicar en GitHub</button></header>
 <main><p class="note">Edita el contenido y pulsa <b>Publicar en GitHub</b>: sube las imágenes nuevas a <b>imagenes/</b> y actualiza <b>content/data.js</b> directamente en tu repositorio (Cloudflare Pages lo publica solo). Primero completa <b>Conexión con GitHub</b>. Alternativas sin GitHub: <b>Guardar en carpeta</b> (Chrome/Edge) o <b>Descargar</b>.</p><div id="m"></div></main>
 <div id="msg"></div>
 <script src="content/data.js"></script>
+<script>
+(()=>{let dp=null;const b=document.getElementById('bInst');
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;b.style.display=''});
+b.onclick=async()=>{if(!dp)return;dp.prompt();await dp.userChoice;dp=null;b.style.display='none'};
+addEventListener('appinstalled',()=>{b.style.display='none'});
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))})();
+</script>
 <script>
 const PASS='joelwebs2026'; // cámbiala aquí. Para seguridad real, protege /admin con Cloudflare Access.
 const $=id=>document.getElementById(id);

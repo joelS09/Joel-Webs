@@ -1,0 +1,27 @@
+{
+  "name": "Admin · Joel Webs",
+  "short_name": "Admin Webs",
+  "description": "Panel para editar el sitio de Joel Webs.",
+  "start_url": "./admin.html",
+  "scope": "./",
+  "id": "./admin.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "imagenes/612999.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "imagenes/612999.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
