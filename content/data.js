@@ -43,6 +43,7 @@ window.SITE_DATA={
   "planes": [
     {
       "nombre": "Plan Básico",
+      "icono": "imagenes/plan-plata.webp",
       "precio": "S/30",
       "desc": "Para blogs, invitaciones digitales o CV.\nUna página simple y limpia.",
       "img": "imagenes/590800.jpg",
@@ -50,6 +51,7 @@ window.SITE_DATA={
     },
     {
       "nombre": "Plan Básico S",
+      "icono": "imagenes/plan-oro.webp",
       "precio": "S/75",
       "desc": "Para promocionar productos.\nCon microanimaciones, mejores colores y diseño más vivo.",
       "img": "imagenes/611928.jpg",
@@ -57,6 +59,7 @@ window.SITE_DATA={
     },
     {
       "nombre": "Plan Pro",
+      "icono": "imagenes/plan-platino.webp",
       "precio": "S/150",
       "desc": "Diseños con animaciones fluidas e interactivas.\nPara tiendas, negocios, APKs, restaurantes y tiendas online.",
       "img": "imagenes/590779.jpg",
@@ -64,6 +67,7 @@ window.SITE_DATA={
     },
     {
       "nombre": "Plan Ultra",
+      "icono": "imagenes/plan-diamante.webp",
       "precio": "S/250",
       "desc": "Todo lo del Pro + animaciones VIP profesionales, acabados premium, efectos más fluidos con una apariencia que sorprende.",
       "img": "imagenes/590849.jpg",
@@ -174,6 +178,10 @@ window.SITE_DATA={
     "©2026 todos los derechos reservados"
   ],
   "estilo": {
+    "tema": "original",
+    "temaAcento": "#22e06b",
+    "temaAcento2": "#ffd60a",
+    "temaFondo": "#050505",
     "ledModo": "fijo",
     "ledColor": "#ffffff",
     "rgbColores": [],
