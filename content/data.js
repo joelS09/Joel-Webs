@@ -46,7 +46,7 @@ window.SITE_DATA={
       "icono": "imagenes/plan-plata.webp",
       "acento": "#c9d1dc",
       "precio": "S/50",
-      "desc": "Una página simple y limpia.\n5 Secciones\n1 Página\nEntrega en una semana\nDominio Github",
+      "desc": "Una página simple y sencilla. \n5 Secciones. \n1 Página. \nEntrega en una semana. \nDominio Github. \n",
       "img": "imagenes/590800.jpg",
       "grad": "linear-gradient(135deg,#222,#000)"
     },
@@ -55,7 +55,7 @@ window.SITE_DATA={
       "icono": "imagenes/plan-oro.webp",
       "acento": "#f2c14e",
       "precio": "S/100",
-      "desc": "Una página simple y limpia.\n5 Secciones o más \n3 Páginas (si es necesario) \nEntrega en una semana\nDominio Github\nAdmin\nLugar en Google (Sales en los resultados de búsqueda de Google) ",
+      "desc": "Una página cencilla pero profesional. \n5 Secciones o más. \n2 Páginas (si es necesario). \nEntrega en una semana. \nDominio Github. \nAdmin. \nLugar en Google (Sales en los resultados de búsqueda de Google). ",
       "img": "imagenes/611928.jpg",
       "grad": "linear-gradient(135deg,#00ff88,#0055ff)"
     },
@@ -64,7 +64,7 @@ window.SITE_DATA={
       "icono": "imagenes/plan-platino.webp",
       "acento": "#b48cff",
       "precio": "S/200",
-      "desc": "Una página simple y limpia.\n5 Secciones o más \n3 Páginas (si es necesario) \nEntrega en una semana\nDominio Github\nAdmin\nLugar en Google (Sales en los resultados de búsqueda de Google) \nAnimaciones",
+      "desc": "Una página profesional y elegante. \n5 Secciones o más. \n3 Páginas (si es necesario). \nEntrega en una semana. \nDominio Github. \nAdmin. \nLugar en Google (Sales en los resultados de búsqueda de Google). \nAnimaciones. ",
       "img": "imagenes/590779.jpg",
       "grad": "linear-gradient(135deg,#ff7a00,#000)"
     },
@@ -73,18 +73,18 @@ window.SITE_DATA={
       "icono": "imagenes/plan-diamante.webp",
       "acento": "#7cc8ff",
       "precio": "S/250",
-      "desc": "Una página simple y limpia.\n5 Secciones o más \n3 Páginas (si es necesario) \nEntrega en una semana\nDominio Github\nAdmin\nLugar en Google (Sales en los resultados de búsqueda de Google) \nAnimaciones VIP\nEstilo Premium ",
+      "desc": "Una página premium y profesional. \n7 Secciones o más. \n5 Páginas (si es necesario). \nEntrega en una semana. \nDominio Github. \nAdmin. \nLugar en Google (Sales en los resultados de búsqueda de Google). \nAnimaciones VIP. \nEstilo Premium. ",
       "img": "imagenes/590849.jpg",
       "grad": "linear-gradient(135deg,#ff0055,#000)"
     }
   ],
   "modelos": [
     {
-      "titulo": "Portfolio Minimalista",
+      "titulo": "Barberia 💈 ",
       "acento": "#f2c14e",
-      "precio": "S/30",
-      "keys": "Portfolio Básico",
-      "img": "",
+      "precio": "S/150",
+      "keys": "Pro",
+      "img": "imagenes/617892.jpg",
       "grad": "linear-gradient(135deg,#1a1a1a,#000)"
     },
     {
