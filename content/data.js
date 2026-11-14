@@ -31,7 +31,7 @@ window.SITE_DATA={
   },
   "hero": {
     "titulo": "EL FUTURO DE TU NEGOCIO",
-    "texto": "Pide tu sitio web para tu negocio y llega a más personas.",
+    "texto": "Pide tu sitio web para tu negocio y llega a más personas con la tecnología de WebStudio. ",
     "placeholder": "Buscar..."
   },
   "secciones": {
@@ -45,8 +45,8 @@ window.SITE_DATA={
       "nombre": "Plan Básico",
       "icono": "imagenes/plan-plata.webp",
       "acento": "#c9d1dc",
-      "precio": "S/30",
-      "desc": "Para blogs, invitaciones digitales o CV.\nUna página simple y limpia.",
+      "precio": "S/50",
+      "desc": "Una página simple y limpia.\n5 Secciones\n1 Página\nEntrega en una semana\nDominio Github",
       "img": "imagenes/590800.jpg",
       "grad": "linear-gradient(135deg,#222,#000)"
     },
@@ -54,8 +54,8 @@ window.SITE_DATA={
       "nombre": "Plan Básico S",
       "icono": "imagenes/plan-oro.webp",
       "acento": "#f2c14e",
-      "precio": "S/75",
-      "desc": "Para promocionar productos.\nCon microanimaciones, mejores colores y diseño más vivo.",
+      "precio": "S/100",
+      "desc": "Una página simple y limpia.\n5 Secciones o más \n3 Páginas (si es necesario) \nEntrega en una semana\nDominio Github\nAdmin\nLugar en Google (Sales en los resultados de búsqueda de Google) ",
       "img": "imagenes/611928.jpg",
       "grad": "linear-gradient(135deg,#00ff88,#0055ff)"
     },
@@ -63,8 +63,8 @@ window.SITE_DATA={
       "nombre": "Plan Pro",
       "icono": "imagenes/plan-platino.webp",
       "acento": "#b48cff",
-      "precio": "S/150",
-      "desc": "Diseños con animaciones fluidas e interactivas.\nPara tiendas, negocios, APKs, restaurantes y tiendas online.",
+      "precio": "S/200",
+      "desc": "Una página simple y limpia.\n5 Secciones o más \n3 Páginas (si es necesario) \nEntrega en una semana\nDominio Github\nAdmin\nLugar en Google (Sales en los resultados de búsqueda de Google) \nAnimaciones",
       "img": "imagenes/590779.jpg",
       "grad": "linear-gradient(135deg,#ff7a00,#000)"
     },
@@ -73,20 +73,12 @@ window.SITE_DATA={
       "icono": "imagenes/plan-diamante.webp",
       "acento": "#7cc8ff",
       "precio": "S/250",
-      "desc": "Todo lo del Pro + animaciones VIP profesionales, acabados premium, efectos más fluidos con una apariencia que sorprende.",
+      "desc": "Una página simple y limpia.\n5 Secciones o más \n3 Páginas (si es necesario) \nEntrega en una semana\nDominio Github\nAdmin\nLugar en Google (Sales en los resultados de búsqueda de Google) \nAnimaciones VIP\nEstilo Premium ",
       "img": "imagenes/590849.jpg",
       "grad": "linear-gradient(135deg,#ff0055,#000)"
     }
   ],
   "modelos": [
-    {
-      "titulo": "Invitación Boda",
-      "acento": "#c9d1dc",
-      "precio": "S/30",
-      "keys": "Básico Blog Invitación",
-      "img": "",
-      "grad": "linear-gradient(135deg,#222,#000)"
-    },
     {
       "titulo": "Portfolio Minimalista",
       "acento": "#f2c14e",
