@@ -46,7 +46,7 @@ window.SITE_DATA={
       "icono": "imagenes/plan-plata.webp",
       "acento": "#c9d1dc",
       "precio": "S/50",
-      "desc": "Una página simple y sencilla. \n5 Secciones. \n1 Página. \nEntrega en una semana. \nDominio Github. \n",
+      "desc": "Una página simple y sencilla. \n5 Secciones. \n1 Página. \nEntrega en una semana. \nDominio Github. \nLugar en Google(sales en Google) pero no te aseguramos el primer lugar en Google ",
       "img": "imagenes/590800.jpg",
       "grad": "linear-gradient(135deg,#222,#000)"
     },
